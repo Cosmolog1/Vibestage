@@ -20,8 +20,6 @@ class Aime
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $createdAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'aime')]
-    private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'aime')]
     private ?Event $event = null;
@@ -55,17 +53,6 @@ class Aime
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 
     public function getEvent(): ?Event
     {

@@ -24,9 +24,6 @@ class Abonnees
     private ?string $alert = null;
 
     #[ORM\ManyToOne(inversedBy: 'abonnees')]
-    private ?User $user = null;
-
-    #[ORM\ManyToOne(inversedBy: 'abonnees')]
     private ?Artiste $artiste = null;
 
     public function getId(): ?int
@@ -66,18 +63,6 @@ class Abonnees
     public function setAlert(string $alert): static
     {
         $this->alert = $alert;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
 
         return $this;
     }

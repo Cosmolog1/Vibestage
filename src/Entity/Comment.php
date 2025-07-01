@@ -27,9 +27,6 @@ class Comment
     private ?int $note = null;
 
     #[ORM\ManyToOne(inversedBy: 'comment')]
-    private ?User $user = null;
-
-    #[ORM\ManyToOne(inversedBy: 'comment')]
     private ?Event $event = null;
 
     public function getId(): ?int
@@ -81,18 +78,6 @@ class Comment
     public function setNote(int $note): static
     {
         $this->note = $note;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
 
         return $this;
     }
