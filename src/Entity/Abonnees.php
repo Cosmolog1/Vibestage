@@ -26,6 +26,9 @@ class Abonnees
     #[ORM\ManyToOne(inversedBy: 'abonnees')]
     private ?Artiste $artiste = null;
 
+    #[ORM\ManyToOne(inversedBy: 'abonnees')]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Abonnees
     public function setArtiste(?Artiste $artiste): static
     {
         $this->artiste = $artiste;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
