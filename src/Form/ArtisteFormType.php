@@ -2,41 +2,40 @@
 
 namespace App\Form;
 
-use App\Entity\Event;
 use App\Entity\Media;
+use App\Entity\Artiste;
 use App\Entity\Musique;
-use App\Entity\Location;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class EventTypeForm extends AbstractType
+class ArtisteFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class, [
-                "label" => "Nom de l'evenement",
+                "label" => "Nom de l'artiste",
                 "required" => true,
             ])
-            // ->add('date')
-            ->add('url', TextType::class, [
-                "label" => "Lien des billets",
+            ->add('genre', TextType::class, [
+                "label" => "Genre de la musique",
                 "required" => true,
             ])
-            ->add('prog', TextType::class, [
-                "label" => "Nom de ou des artistes",
+            ->add('country', TextType::class, [
+                "label" => "Nom du pays",
                 "required" => true,
             ])
-            ->add('content', TextType::class, [
-                "label" => "Résumer du festival",
+            ->add('nbAbonne', NumberType::class, [
+                "label" => "Nombre d'abonnées",
                 "required" => true,
             ])
-            ->add('price', NumberType::class, [
-                "label" => "Prix du festival",
+            ->add('content', TextareaType::class, [
+                "label" => "Résumer de l'artiste",
                 "required" => true,
             ])
             ->add('musique', EntityType::class, [
@@ -47,18 +46,13 @@ class EventTypeForm extends AbstractType
                 'class' => Media::class,
                 'choice_label' => 'id',
             ])
-            ->add('location', EntityType::class, [
-                'class' => Location::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Event::class,
+            'data_class' => Artiste::class,
         ]);
     }
 }
