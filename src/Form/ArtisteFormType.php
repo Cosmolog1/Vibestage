@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -22,15 +23,21 @@ class ArtisteFormType extends AbstractType
                 "label" => "Nom de l'artiste",
                 "required" => true,
             ])
-            ->add('genre', TextType::class, [
-                "label" => "Genre de la musique",
-                "required" => true,
+            ->add('genre', ChoiceType::class, [
+                'choices' => [
+                    'Femme' => 'Femme',
+                    'Homme' => 'Homme',
+                    'Mixte' => 'Mixte',
+                ],
+                'expanded' => false, // false = liste déroulante, true = boutons radio
+                'multiple' => false, // un seul choix possible
+                'label' => 'Sexe',
             ])
             ->add('country', TextType::class, [
                 "label" => "Nom du pays",
                 "required" => true,
             ])
-            ->add('nbAbonne', NumberType::class, [
+            ->add('nbAbonne', TextType::class, [
                 "label" => "Nombre d'abonnées",
                 "required" => true,
             ])
@@ -40,11 +47,16 @@ class ArtisteFormType extends AbstractType
             ])
             ->add('musique', EntityType::class, [
                 'class' => Musique::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('media', EntityType::class, [
                 'class' => Media::class,
                 'choice_label' => 'id',
+            ])
+
+            ->add('image', TextType::class, [
+                "label" => "Photo groupe",
+                "required" => true,
             ])
         ;
     }

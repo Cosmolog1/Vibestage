@@ -1,16 +1,28 @@
 <div class="container">
     <nav>
         <div class="logo">
-          <img src="/images/Vibestage_logo.png" alt="Logo Vibestage">
+          <a href = "{{path('home')}}"><img src="/images/Vibestage_logo.png" alt="Logo Vibestage"></a>
         </div>
         <div classe="menu">
+            {% if app.user %}
+                {% if is_granted("ROLE_ADMIN") %}
+                    <a href="{{path('admin')}}">Admin</a>
+                {% else %}
+                    <a href="#">Acceuil</a>
+                    <a href="#">Artiste</a>
+                    <a href="#">Event</a>
+                {% endif %}
+            {% endif %}
             <a href="#">Acceuil</a>
             <a href="#">Artiste</a>
             <a href="#">Event</a>
         </div>
         <div classe="connect">
-            <button class="connect">Connect</button>
-            <button class="register">Register</button>
+            {% if app.user %}
+                {{app.user.pseudo}}  <a href="{{path('app_logout')}}">/ Disconnect</a>
+                {% else %}
+                    <a class="connect" href="{{ path ('app_login') }}">Connect / Register</a>
+            {% endif %}
         </div>
     </nav>
 </div>

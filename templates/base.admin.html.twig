@@ -13,9 +13,23 @@
     </head>
     <body>
         <header>
-            {% include "partials/navAdmin.html.twig" %}
+            {% include "partials/nav.html.twig" %}
         </header>
+        <main class="main">
+            <aside class="sidebar">
+                <nav class="nav">
+                    <ul>
+                        <li class="active"><a href="{{ path ('admin') }}">Welcome</a></li>
+                        <li><a href="{{ path ('admin_artiste') }}">Artiste</a></li>
+                        <li><a href="{{ path ('admin_event') }}">Event</a></li>
+                        <li><a href="{{ path ('admin_musique') }}">Musique</a></li>
+                    </ul>
+                 </nav>
+            </aside>
+        </main>
+        {% block section %}
 
+        {% endblock %}
         <footer>
             {% include "partials/footer.html.twig" %}
         </footer>

@@ -1,0 +1,26 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Hello AdminCategoryController!{% endblock %}
+
+{% block section %}
+
+<br>
+<p>Title : {{ artiste.name }}</p>
+<br>
+<p>Image : {{ artiste.image }}</p>
+<br>
+<p>Genre : {{ artiste.genre }}</p>
+<br>
+<p>Ingredients : {{ artiste.musique.name }}</p>
+<br>
+<p>Content : <br>{{ artiste.content }}</p>
+<br>
+<p>Image : {{ artiste.nbAbonne }}</p>
+<br>
+<p>country : {{ artiste.country }}</p>
+<br>
+
+
+<button type="submit">Soumettre</button>
+
+{% endblock %}

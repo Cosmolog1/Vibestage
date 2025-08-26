@@ -22,14 +22,17 @@ class Artiste
     #[ORM\Column(length: 255)]
     private ?string $genre = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $country = null;
+    #[ORM\Column(length: 255)]
+    private ?string $country = null;
 
     #[ORM\Column]
-    private ?int $nbAbonne = null;
+    private ?string $nbAbonne = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
 
     /**
      * @var Collection<int, Abonnees>
@@ -42,6 +45,9 @@ class Artiste
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Media $media = null;
+
+
+
 
     public function __construct()
     {
@@ -77,12 +83,12 @@ class Artiste
         return $this;
     }
 
-    public function getCountry(): ?\DateTime
+    public function getCountry(): ?string
     {
         return $this->country;
     }
 
-    public function setCountry(\DateTime $country): static
+    public function setCountry(string $country): static
     {
         $this->country = $country;
 
@@ -94,7 +100,7 @@ class Artiste
         return $this->nbAbonne;
     }
 
-    public function setNbAbonne(int $nbAbonne): static
+    public function setNbAbonne(string $nbAbonne): static
     {
         $this->nbAbonne = $nbAbonne;
 
@@ -109,6 +115,18 @@ class Artiste
     public function setContent(string $content): static
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

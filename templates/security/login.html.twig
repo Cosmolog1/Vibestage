@@ -3,32 +3,40 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-    <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
-
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" name="_remember_me"> Remember me
-        </label>
-    </div>
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+		<form method="post" action="{{ path('app_register') }}">
+			<h1>Create Account</h1>
+			<span>or use your email for registration</span>
+			<input type="pseudo" name="pseudo" id="inputpseudo" placeholder="Pseudo" />
+			<input type="email" value="{{ last_username }}" name="email" id="inputEmail_signup" class="form-control" autocomplete="email" placeholder="Email" autofocus>
+			<input type="password" name="password" id="inputPassword_signup" class="form-control" autocomplete="current-password" placeholder="Passeword" required>
+			<button>Sign Up</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<form method="post" action="{{ path('app_login') }}">
+			<h1>Sign in</h1>
+			<span>or use your account</span>
+			<input type="email" value="{{ last_username }}" name="email" id="inputEmail_login" class="form-control" autocomplete="email" placeholder="Email" autofocus>
+			<input type="password" name="password" id="inputPassword_login" class="form-control" autocomplete="current-password" placeholder="Passeword" required>
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			<button type="submit">Sign In</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+				<button class="ghost" id="signIn">Sign In</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Hello, Friend!</h1>
+				<p>Enter your personal details and start journey with us</p>
+				<button class="ghost" id="signUp">Sign Up</button>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}

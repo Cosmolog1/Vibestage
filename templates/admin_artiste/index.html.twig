@@ -1,0 +1,41 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Hello AdminIngredientController!{% endblock %}
+
+{% block section %}
+
+<section class="container">
+
+    <table>
+
+        <tr>
+            <th>Artiste :</th>
+            <th scope="col">Voir</th>
+            <th scope="col">Remove</th>
+            <th scope="col">Edit</th>
+
+        </tr>
+        <a href="{{path('admin_artiste_add')}}">Add</a>
+        {% for artiste in artistes %}
+        <tr>
+            <td>
+                {{artiste.name}}
+            </td>
+            <td>
+                <a href="{{ path('admin_artiste_show', {'id': artiste.id}) }}">Voir</a>
+            </td>
+            <td>
+                <a href="{{ path('admin_artiste_delete', {'id': artiste.id}) }}">Supprimer</a>
+            </td>
+            <td>
+                <a href="{{path('admin_artiste_edit',{id : artiste.id})}}">Edit</a>
+            </td>
+
+        </tr>
+
+        </body>
+        {% endfor %}
+    </table>
+</section>
+
+{% endblock %}
