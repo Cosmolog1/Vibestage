@@ -18,12 +18,6 @@ class Location
     #[ORM\Column(length: 255)]
     private ?string $country = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $region = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $departement = null;
-
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
@@ -55,29 +49,6 @@ class Location
         return $this;
     }
 
-    public function getRegion(): ?string
-    {
-        return $this->region;
-    }
-
-    public function setRegion(?string $region): static
-    {
-        $this->region = $region;
-
-        return $this;
-    }
-
-    public function getDepartement(): ?string
-    {
-        return $this->departement;
-    }
-
-    public function setDepartement(?string $departement): static
-    {
-        $this->departement = $departement;
-
-        return $this;
-    }
 
     public function getCity(): ?string
     {

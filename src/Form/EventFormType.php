@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\Media;
+use App\Entity\Artiste;
 use App\Entity\Musique;
 use App\Entity\Location;
 use Symfony\Component\Form\AbstractType;
@@ -23,13 +24,15 @@ class EventFormType extends AbstractType
                 "required" => true,
             ])
             // ->add('date')
+
             ->add('url', TextType::class, [
                 "label" => "Lien des billets",
-                "required" => true,
+                "required" => false,
             ])
-            ->add('prog', TextType::class, [
-                "label" => "Nom de ou des artistes",
-                "required" => true,
+            ->add('prog', EntityType::class, [
+                'class' => Artiste::class,
+                'choice_label' => 'name',
+                'multiple' => true,
             ])
             ->add('content', TextType::class, [
                 "label" => "Résumer du festival",
@@ -37,11 +40,12 @@ class EventFormType extends AbstractType
             ])
             ->add('price', NumberType::class, [
                 "label" => "Prix du festival",
-                "required" => true,
+                "required" => false,
             ])
             ->add('musique', EntityType::class, [
                 'class' => Musique::class,
-                'choice_label' => 'id',
+                "label" => "Choix de la musique",
+                'choice_label' => 'name',
             ])
             ->add('media', EntityType::class, [
                 'class' => Media::class,
@@ -49,7 +53,9 @@ class EventFormType extends AbstractType
             ])
             ->add('location', EntityType::class, [
                 'class' => Location::class,
-                'choice_label' => 'id',
+                "label" => "Nom de la ville",
+                'choice_label' => 'city',
+                "required" => true,
                 'multiple' => true,
             ])
         ;

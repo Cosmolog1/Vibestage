@@ -95,6 +95,8 @@ final class AdminArtisteController extends AbstractController
 
             $entityManager->persist($edit);
             $entityManager->flush();
+
+            return $this->redirectToRoute('admin_artiste');
         }
 
         return $this->render("admin_artiste/edit.html.twig", parameters: [
@@ -119,6 +121,8 @@ final class AdminArtisteController extends AbstractController
 
             $entityManager->persist($art);
             $entityManager->flush();
+
+            return $this->redirectToRoute('admin_artiste');
         }
 
 

@@ -95,7 +95,7 @@ class Artiste
         return $this;
     }
 
-    public function getNbAbonne(): ?int
+    public function getNbAbonne(): ?string
     {
         return $this->nbAbonne;
     }

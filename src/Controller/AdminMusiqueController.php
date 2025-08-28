@@ -20,6 +20,7 @@ final class AdminMusiqueController extends AbstractController
 
         return $this->render('admin_musique/index.html.twig', [
             'controller_name' => 'AdminMusiqueController',
+            'musiques' => $musiques
         ]);
     }
 
@@ -62,6 +63,8 @@ final class AdminMusiqueController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($edit);
             $entityManager->flush();
+
+            return $this->redirectToRoute('admin_musique');
         }
 
         return $this->render("admin_musique/edit.html.twig", parameters: [
@@ -83,6 +86,8 @@ final class AdminMusiqueController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($mus);
             $entityManager->flush();
+
+            return $this->redirectToRoute('admin_musique');
         }
 
 

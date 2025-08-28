@@ -1,0 +1,28 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Hello AdminCategoryController!{% endblock %}
+
+{% block section %}
+
+<br>
+<p>Title : {{ event.name }}</p>
+<br>
+<p>Date : {{ event.date }}</p>
+<br>
+<p>Lien : {{ event.url }}</p>
+<br>
+<p>Proramation : {{ event.prog }}</p>
+<br>
+<p>Musique : {{ event.musique.name }}</p>
+<br>
+<p>Content : {{ event.content }}</p>
+<br>
+<p>Prix : {{ form_row(form.price) }}</p>
+<br>
+
+
+
+
+<button type="submit">Soumettre</button>
+
+{% endblock %}

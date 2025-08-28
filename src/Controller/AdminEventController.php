@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
 use App\Form\EventFormType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -9,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -19,7 +21,7 @@ final class AdminEventController extends AbstractController
     {
         $events = $EventRepository->findAll();
 
-        return $this->render('admin_artiste/index.html.twig', [
+        return $this->render('admin_event/index.html.twig', [
             'events' => $events,
         ]);
     }
@@ -89,11 +91,41 @@ final class AdminEventController extends AbstractController
 
             $entityManager->persist($edit);
             $entityManager->flush();
+
+            return $this->redirectToRoute('admin_event');
         }
 
         return $this->render("admin_event/edit.html.twig", parameters: [
             "edit" => $edit,
             "form" => $form->createView()
+        ]);
+    }
+
+    #[Route('/admin/add_event', name: 'admin_event_add')]
+    public function add_event(
+        EntityManagerInterface $entityManager,
+        Request $request,
+
+    ): Response {
+        $eve = new Event();
+        $form = $this->createForm(EventFormType::class, $eve);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            $entityManager->persist($eve);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_event');
+        }
+
+
+        return $this->render('admin_event/add.html.twig', [
+            'controller_name' => 'AdminEventController',
+            'form' => $form->createView(),
+
         ]);
     }
 }

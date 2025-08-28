@@ -1,0 +1,17 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Hello AdminRecipeController!{% endblock %}
+
+{% block section %}
+
+{{ form_start(form) }}
+<br>
+{{ form_row(form.name) }}
+
+
+
+
+<button type="submit">Soumettre</button>
+
+{{ form_end(form) }}
+{% endblock  %}
