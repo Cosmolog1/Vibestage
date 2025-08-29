@@ -21,9 +21,9 @@ final class AdminArtisteController extends AbstractController
     // Création de la route qui affichera tout les artistes à l'admin une fois co
 
     #[Route('/admin/artiste', name: 'admin_artiste')]
-    public function index(ArtisteRepository $ArtisteRepository): Response
+    public function index(ArtisteRepository $artisteRepository): Response
     {
-        $artistes = $ArtisteRepository->findAll();
+        $artistes = $artisteRepository->findAll();
 
         return $this->render('admin_artiste/index.html.twig', [
             'artistes' => $artistes,

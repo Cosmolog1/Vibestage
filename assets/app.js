@@ -5,21 +5,10 @@ import "./bootstrap.js";
  * This file will be included onto the page via the importmap() Twig function,
  * which should already be in your base.html.twig.
  */
+import "./vendor/bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap";
 import "./styles/app.css";
 
+import "./scripts/login.js";
+
 console.log("This log comes from assets/app.js - welcome to AssetMapper! 🎉");
-
-/*javascropt du formulaire login */
-
-const signUpButton = document.getElementById("signUp");
-const signInButton = document.getElementById("signIn");
-const container = document.getElementById("container");
-
-signUpButton.addEventListener("click", () => {
-    container.classList.add("right-panel-active");
-});
-
-signInButton.addEventListener("click", () => {
-    container.classList.remove("right-panel-active");
-    location.reload();
-});
