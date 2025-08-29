@@ -1,0 +1,40 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Hello AdminIngredientController!{% endblock %}
+
+{% block section %}
+
+<section class="container">
+
+    <table>
+        <tr>
+            <th>Location :</th>
+            <th scope="col">Voir</th>
+            <th scope="col">Remove</th>
+            <th scope="col">Edit</th>
+
+        </tr>
+        <a href="{{path('admin_location_add')}}">Add</a>
+        {% for location in locations %}
+        <tr>
+            <td>
+                {{location.city}}
+            </td>
+            <td>
+                <a href="{{ path('admin_location_show', {'id': location.id}) }}">Voir</a>
+            </td>
+            <td>
+                <a href="{{ path('admin_location_delete', {'id': location.id}) }}">Supprimer</a>
+            </td>
+            <td>
+                <a href="{{path('admin_location_edit',{id : location.id})}}">Edit</a>
+            </td>
+
+        </tr>
+
+        </body>
+        {% endfor %}
+    </table>
+</section>
+
+{% endblock %}

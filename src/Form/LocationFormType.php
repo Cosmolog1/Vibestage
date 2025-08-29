@@ -19,22 +19,10 @@ class LocationFormType extends AbstractType
                 "label" => "Nom du pays",
                 "required" => true,
             ])
-            ->add('region', TextType::class, [
-                "label" => "Nom de la region",
-                "required" => true,
-            ])
-            ->add('departement', TextType::class, [
-                "label" => "Nom du departement",
-                "required" => true,
-            ])
+
             ->add('city', TextType::class, [
                 "label" => "Nom de la ville",
                 "required" => true,
-            ])
-            ->add('events', EntityType::class, [
-                'class' => Event::class,
-                'choice_label' => 'id',
-                'multiple' => true,
             ])
         ;
     }

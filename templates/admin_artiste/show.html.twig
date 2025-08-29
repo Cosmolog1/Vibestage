@@ -7,7 +7,16 @@
 <br>
 <p>Title : {{ artiste.name }}</p>
 <br>
-<p>Image : {{ artiste.image }}</p>
+<tr>
+    <th>Image :</th>
+    <td>
+        {% if artiste.image %}
+            <img src="{{ asset(artiste.image) }}" alt="Image de l'artiste" style="max-width: 200px;">
+        {% else %}
+            <em>Aucune image</em>
+        {% endif %}
+    </td>
+</tr>
 <br>
 <p>Genre : {{ artiste.genre }}</p>
 <br>
@@ -15,9 +24,9 @@
 <br>
 <p>Content : <br>{{ artiste.content }}</p>
 <br>
-<p>Image : {{ artiste.nbAbonne }}</p>
+<p>Abonnées : {{ artiste.nbAbonne }}</p>
 <br>
-<p>country : {{ artiste.country }}</p>
+<p>Country : {{ artiste.country }}</p>
 <br>
 
 

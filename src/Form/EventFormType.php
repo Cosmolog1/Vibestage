@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
@@ -23,7 +24,10 @@ class EventFormType extends AbstractType
                 "label" => "Nom de l'evenement",
                 "required" => true,
             ])
-            // ->add('date')
+            ->add('date', DateType::class, [
+                'widget' => 'single_text',
+                "required" => true,
+            ])
 
             ->add('url', TextType::class, [
                 "label" => "Lien des billets",
@@ -38,10 +42,7 @@ class EventFormType extends AbstractType
                 "label" => "Résumer du festival",
                 "required" => true,
             ])
-            ->add('price', NumberType::class, [
-                "label" => "Prix du festival",
-                "required" => false,
-            ])
+
             ->add('musique', EntityType::class, [
                 'class' => Musique::class,
                 "label" => "Choix de la musique",

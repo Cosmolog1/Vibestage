@@ -63,45 +63,22 @@ final class AdminArtisteController extends AbstractController
         $id,
         ArtisteRepository $ArtisteRepository,
         EntityManagerInterface $entityManager,
-        Request $request,
-        SluggerInterface $slugger,
-        #[Autowire('%kernel.project_dir%/public/upload/image')] string $imagesDirectory
+        Request $request
     ): Response {
-
         $edit = $ArtisteRepository->find($id);
         $form = $this->createForm(ArtisteFormType::class, $edit);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $imageFile = $form->get('image')->getData();
-
-            if ($imageFile) {
-                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
-
-                // Move the file to the directory where images are stored
-                try {
-                    $imageFile->move($imagesDirectory, $newFilename);
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-
-                // updates the 'imageFilename' property to store the PDF file name
-                // instead of its contents
-                $edit->setImage($newFilename);
-            }
-
             $entityManager->persist($edit);
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_artiste');
         }
 
-        return $this->render("admin_artiste/edit.html.twig", parameters: [
-            "edit" => $edit,
-            "form" => $form->createView()
+        return $this->render('admin_artiste/edit.html.twig', [
+            'edit' => $edit,
+            'form' => $form->createView(),
         ]);
     }
 

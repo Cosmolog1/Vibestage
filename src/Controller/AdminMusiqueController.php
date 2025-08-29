@@ -30,7 +30,7 @@ final class AdminMusiqueController extends AbstractController
     {
         $musique = $MusiqueRepository->find($id);
 
-        return $this->render('admin_difficult/show.html.twig', [
+        return $this->render('admin_musique/show.html.twig', [
             'musique' => $musique
         ]);
     }
@@ -93,7 +93,7 @@ final class AdminMusiqueController extends AbstractController
 
 
         return $this->render('admin_musique/add.html.twig', [
-            'controller_name' => 'AdminDifficultController',
+            'controller_name' => 'AdminMusiqueController',
             'form' => $form->createView(),
 
         ]);
