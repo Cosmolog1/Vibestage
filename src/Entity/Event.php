@@ -25,8 +25,6 @@ class Event
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $url = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $prog = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
@@ -56,11 +54,21 @@ class Event
     #[ORM\ManyToMany(targetEntity: Location::class, inversedBy: 'events')]
     private Collection $location;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
+    /**
+     * @var Collection<int, Artiste>
+     */
+    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'events')]
+    private Collection $artistes;
+
     public function __construct()
     {
         $this->comment = new ArrayCollection();
         $this->aime = new ArrayCollection();
         $this->location = new ArrayCollection();
+        $this->artistes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -104,17 +112,6 @@ class Event
         return $this;
     }
 
-    public function getProg(): ?string
-    {
-        return $this->prog;
-    }
-
-    public function setProg(string $prog): static
-    {
-        $this->prog = $prog;
-
-        return $this;
-    }
 
     public function getContent(): ?string
     {
@@ -233,6 +230,45 @@ class Event
     public function removeLocation(Location $location): static
     {
         $this->location->removeElement($location);
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Artiste>
+     */
+    public function getArtistes(): Collection
+    {
+        return $this->artistes;
+    }
+
+    public function addArtiste(Artiste $artiste): static
+    {
+        if (!$this->artistes->contains($artiste)) {
+            $this->artistes->add($artiste);
+            $artiste->addEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArtiste(Artiste $artiste): static
+    {
+        if ($this->artistes->removeElement($artiste)) {
+            $artiste->removeEvent($this); // ✅ côté inverse
+        }
 
         return $this;
     }

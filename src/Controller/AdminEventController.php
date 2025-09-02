@@ -60,8 +60,6 @@ final class AdminEventController extends AbstractController
         EventRepository $EventRepository,
         EntityManagerInterface $entityManager,
         Request $request,
-        SluggerInterface $slugger,
-        #[Autowire('%kernel.project_dir%/public/upload/image')] string $imagesDirectory
     ): Response {
 
         $edit = $EventRepository->find($id);
@@ -69,25 +67,8 @@ final class AdminEventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $imageFile = $form->get('image')->getData();
-
-            if ($imageFile) {
-                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
-
-                // Move the file to the directory where images are stored
-                try {
-                    $imageFile->move($imagesDirectory, $newFilename);
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-
-                // updates the 'imageFilename' property to store the PDF file name
-                // instead of its contents
-                $edit->setImage($newFilename);
-            }
+            $image = $form->get('image')->getData();  // récupère le texte saisi
+            $edit->setImage($image);                  // met à jour l'entité
 
             $entityManager->persist($edit);
             $entityManager->flush();

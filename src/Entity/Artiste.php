@@ -46,12 +46,14 @@ class Artiste
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Media $media = null;
 
-
+    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'artistes')]
+    private Collection $events;
 
 
     public function __construct()
     {
         $this->abonnees = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -156,6 +158,33 @@ class Artiste
             if ($abonnee->getArtiste() === $this) {
                 $abonnee->setArtiste(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): static
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->addArtiste($this); // côté bidirectionnel
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): static
+    {
+        if ($this->events->removeElement($event)) {
+            $event->removeArtiste($this); // côté bidirectionnel
         }
 
         return $this;

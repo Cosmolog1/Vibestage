@@ -33,10 +33,12 @@ class EventFormType extends AbstractType
                 "label" => "Lien des billets",
                 "required" => false,
             ])
-            ->add('prog', EntityType::class, [
+            ->add('artistes', EntityType::class, [
+                'label' => 'Artistes',
                 'class' => Artiste::class,
                 'choice_label' => 'name',
                 'multiple' => true,
+
             ])
             ->add('content', TextType::class, [
                 "label" => "Résumer du festival",
@@ -58,6 +60,11 @@ class EventFormType extends AbstractType
                 'choice_label' => 'city',
                 "required" => true,
                 'multiple' => true,
+            ])
+
+            ->add('image', TextType::class, [
+                "label" => "Photo event",
+                "required" => true,
             ])
         ;
     }

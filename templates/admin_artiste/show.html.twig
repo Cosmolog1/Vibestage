@@ -17,14 +17,18 @@
         {% endif %}
     </td>
 </tr>
+
+<br>
+
+<p>Name : {{ artiste.name }}</p>
+<br>
+<p>Musique : {{ artiste.musique.name }}</p>
 <br>
 <p>Genre : {{ artiste.genre }}</p>
 <br>
-<p>Ingredients : {{ artiste.musique.name }}</p>
+<p>Abonnées : {{ artiste.nbAbonne }}</p>
 <br>
 <p>Content : <br>{{ artiste.content }}</p>
-<br>
-<p>Abonnées : {{ artiste.nbAbonne }}</p>
 <br>
 <p>Country : {{ artiste.country }}</p>
 <br>

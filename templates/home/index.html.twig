@@ -1,20 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    {# <h1>Hello {{ controller_name }}! ✅</h1> #}
+    <div class = "intro">
+        <h1 class="h1-intro">Vibetage<br></h1>
+        <h2 class="h2-intro">Pour vibrer au rythme des artistes</h2>
+        <div class = "intro-img">
+            <img class="img-intro-gauche" src = "https://i.pinimg.com/736x/07/43/9f/07439f93003450ccbdfe961a95f6318c.jpg"/>
+            <img class="img-intro-droite" src ="https://i.pinimg.com/1200x/74/08/b8/7408b895005c0b9c5229d3e12a91d1c3.jpg"/>
+        </div>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/Utilisateur/Documents/Simplon/Exercice/Symfony/Vibestage/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>C:/Users/Utilisateur/Documents/Simplon/Exercice/Symfony/Vibestage/templates/home/index.html.twig</code></li>
-    </ul>
-</div>
+
+    <h4 class="h4-caroussel">Artistes populaires</h4>
+    <div class="caroussel-artiste">
+        {% for artiste in artistes %}
+            <div class="card-artiste">
+                <img 
+                    class="card-img-top" 
+                    src="{{ asset(artiste.image ?? 'images/default.jpg') }}" 
+                    alt="{{ artiste.name }}"
+                >
+                <div class="overlay">
+                    <span class="card-name">{{ artiste.name }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h4 class="h4-caroussel">Événements populaires</h4>
+    <div class="caroussel-artiste">
+        {% for event in events %}
+            <div class="card-artiste">
+                <img 
+                    class="card-img-top" 
+                    src="{{ asset(event.image ?? 'images/default.jpg') }}" 
+                    alt="{{ event.name }}"
+                >
+                <div class="overlay">
+                    <span class="card-name">{{ event.name }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}
