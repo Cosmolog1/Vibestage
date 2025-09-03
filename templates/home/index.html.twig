@@ -12,32 +12,28 @@
     </div>
 
 
-    <h4 class="h4-caroussel">Artistes populaires</h4>
+    <h4 class="h3-caroussel">Artistes populaires</h4>
     <div class="caroussel-artiste">
         {% for artiste in artistes %}
             <div class="card-artiste">
                 <img 
                     class="card-img-top" 
-                    src="{{ asset(artiste.image ?? 'images/default.jpg') }}" 
-                    alt="{{ artiste.name }}"
-                >
-                <div class="overlay">
+                    src="{{ asset(artiste.image ?? 'images/default.jpg') }}" alt={{ artiste.name }}>
+                <div class="overlay-card">
                     <span class="card-name">{{ artiste.name }}</span>
                 </div>
             </div>
         {% endfor %}
     </div>
-
-    <h4 class="h4-caroussel">Événements populaires</h4>
+    
+    <h4 class="h3-caroussel">Événements populaires</h4>
     <div class="caroussel-artiste">
         {% for event in events %}
             <div class="card-artiste">
                 <img 
                     class="card-img-top" 
-                    src="{{ asset(event.image ?? 'images/default.jpg') }}" 
-                    alt="{{ event.name }}"
-                >
-                <div class="overlay">
+                    src="{{ asset(event.image ?? 'images/default.jpg') }}" alt="{{ event.name }}">
+                <div class="overlay-card">
                     <span class="card-name">{{ event.name }}</span>
                 </div>
             </div>

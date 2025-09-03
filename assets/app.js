@@ -5,10 +5,17 @@ import "./bootstrap.js";
  * This file will be included onto the page via the importmap() Twig function,
  * which should already be in your base.html.twig.
  */
-import "./vendor/bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap";
+// import "./vendor/bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap";
 import "./styles/app.css";
 
 import "./scripts/login.js";
 
 console.log("This log comes from assets/app.js - welcome to AssetMapper! 🎉");
+
+/* Animation image */
+
+card.addEventListener("click", function () {
+    this.classList.add("subtle-rotate");
+    setTimeout(() => this.classList.remove("subtle-rotate"), 600);
+});
