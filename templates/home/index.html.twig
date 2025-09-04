@@ -2,21 +2,12 @@
 
 {% block body %}
 
-    <div class = "intro">
-        <h1 class="h1-intro">Vibetage<br></h1>
-        <h2 class="h2-intro">Pour vibrer au rythme des artistes</h2>
-        <div class = "intro-img">
-            <img class="img-intro-gauche" src = "https://i.pinimg.com/736x/07/43/9f/07439f93003450ccbdfe961a95f6318c.jpg"/>
-            <img class="img-intro-droite" src ="https://i.pinimg.com/1200x/74/08/b8/7408b895005c0b9c5229d3e12a91d1c3.jpg"/>
-        </div>
-    </div>
-
 
     <h4 class="h3-caroussel">Artistes populaires</h4>
     <div class="caroussel-artiste">
         {% for artiste in artistes %}
             <div class="card-artiste">
-                <img 
+               <img 
                     class="card-img-top" 
                     src="{{ asset(artiste.image ?? 'images/default.jpg') }}" alt={{ artiste.name }}>
                 <div class="overlay-card">

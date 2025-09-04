@@ -1,5 +1,12 @@
+
 body {
-    background-color: #0e4066;
+    background-color: #ffffff;
+	margin: 0;
+    padding: 0;
+}
+
+html {
+	margin: 0%;
 }
 
 /* Css du header  */
@@ -13,6 +20,15 @@ nav {
     align-items: center;
     padding: 10px 0;
 	color:#007bff;
+	padding-inline-start: 40px;
+    padding-inline-end: 40px;
+}
+
+header{
+    background-image: url(https://i.pinimg.com/736x/c6/af/7d/c6af7d9e637ccfdd3a68fd735cefea6b.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;  /* L'image couvre tout l'espace */
+    background-position: center; /* Centre l'image */
 }
 
 nav a{
@@ -58,6 +74,10 @@ button{
     align-items: baseline;
     justify-items: center;
     font-size: 25px;
+	background-image: url(https://images.pexels.com/photos/185030/pexels-photo-185030.jpeg);
+	background-repeat: no-repeat;
+    background-size: cover;  /* L'image couvre tout l'espace */
+    background-position: center; /* Centre l'image */
 }
 
 .foot a{
@@ -84,9 +104,6 @@ button{
 }
 
 
-
-
-
 /* Css du carroussel  */
 
 .caroussel-artiste{
@@ -99,10 +116,11 @@ button{
 }
 
 .h3-caroussel {
-    margin-top: 50px;
+    margin-top: 0px;
 	padding-inline-start: 50px;
 	color:#C9871E;
-	font-size: x-large;
+	font-size: 40px;
+
 }
 
 .card-artiste {
@@ -137,11 +155,20 @@ button{
 .card-name {
   color: #C9871E;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 20px;
 }
 
 p, td, th{
 	color : #C9871E;
+
+}
+
+main{
+    background-image: url(https://images.pexels.com/photos/1690080/pexels-photo-1690080.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;  /* L'image couvre tout l'espace */
+    background-position: center; /* Centre l'image */
+	padding-top: 50px; /* espace au-dessus du contenu sans trou dans le background */
 }
 
 /* Css de l'introduction */
@@ -151,7 +178,10 @@ p, td, th{
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction : column-reverse;
-	align-content : center
+	align-content : center;
+	margin: 0;
+    padding: 0;
+	font-size: 40px;
 }
 
 .img-intro-gauche {
@@ -250,12 +280,12 @@ button:focus {
 }
 
 button.ghost {
-	background-color: transparent;
+	/* background-color: transparent; */
 	border-color: #FFFFFF;
 }
 
 form {
-	background-color: #FFFFFF;
+	background-color: #e35555;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -376,6 +406,7 @@ input {
 	width: 50%;
 	transform: translateX(0);
 	transition: transform 0.6s ease-in-out;
+	background-color: #ebdbdb;
 }
 
 .overlay-left {

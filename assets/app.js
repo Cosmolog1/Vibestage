@@ -15,7 +15,11 @@ console.log("This log comes from assets/app.js - welcome to AssetMapper! 🎉");
 
 /* Animation image */
 
-card.addEventListener("click", function () {
-    this.classList.add("subtle-rotate");
-    setTimeout(() => this.classList.remove("subtle-rotate"), 600);
+const cards = document.querySelectorAll(".card-artiste");
+
+cards.forEach((card) => {
+    card.addEventListener("click", function () {
+        this.classList.add("subtle-rotate");
+        setTimeout(() => this.classList.remove("subtle-rotate"), 600);
+    });
 });
