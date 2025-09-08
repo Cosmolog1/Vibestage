@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\Event;
 use App\Entity\Media;
 use App\Entity\Artiste;
-use App\Entity\Musique;
+use App\Entity\Category;
 use App\Entity\Location;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,7 +24,12 @@ class EventFormType extends AbstractType
                 "label" => "Nom de l'evenement",
                 "required" => true,
             ])
-            ->add('date', DateType::class, [
+            ->add('dateStart', DateType::class, [
+                'widget' => 'single_text',
+                "required" => true,
+            ])
+
+            ->add('dateEnd', DateType::class, [
                 'widget' => 'single_text',
                 "required" => true,
             ])
@@ -45,11 +50,6 @@ class EventFormType extends AbstractType
                 "required" => true,
             ])
 
-            ->add('musique', EntityType::class, [
-                'class' => Musique::class,
-                "label" => "Choix de la musique",
-                'choice_label' => 'name',
-            ])
             ->add('media', EntityType::class, [
                 'class' => Media::class,
                 'choice_label' => 'id',

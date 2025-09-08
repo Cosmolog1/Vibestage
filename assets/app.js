@@ -1,25 +1,20 @@
 import "./bootstrap.js";
-/*
- * Welcome to your app's main JavaScript file!
- *
- * This file will be included onto the page via the importmap() Twig function,
- * which should already be in your base.html.twig.
- */
-// import "./vendor/bootstrap/dist/css/bootstrap.min.css";
-// import "bootstrap";
 import "./styles/app.css";
-
-import "./scripts/login.js";
 
 console.log("This log comes from assets/app.js - welcome to AssetMapper! 🎉");
 
 /* Animation image */
+function applySubtleRotation(card) {
+    card.classList.remove("subtle-rotate");
+    card.offsetHeight; // Force le reflow
+    card.classList.add("subtle-rotate");
 
-const cards = document.querySelectorAll(".card-artiste");
+    setTimeout(() => {
+        card.classList.remove("subtle-rotate");
+    }, 650);
+}
 
-cards.forEach((card) => {
-    card.addEventListener("click", function () {
-        this.classList.add("subtle-rotate");
-        setTimeout(() => this.classList.remove("subtle-rotate"), 600);
-    });
+// Au clic
+card.addEventListener("click", function () {
+    applyClickAnimation(this);
 });

@@ -39,26 +39,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user')]
     private Collection $comment;
 
-    /**
-     * @var Collection<int, Aime>
-     */
-    #[ORM\OneToMany(targetEntity: Aime::class, mappedBy: 'user')]
-    private Collection $aime;
 
     /**
-     * @var Collection<int, Abonnees>
+     * @var Collection<int, Like>
      */
-    #[ORM\OneToMany(targetEntity: Abonnees::class, mappedBy: 'user')]
-    private Collection $abonnees;
+    #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'user')]
+    private Collection $likes;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    /**
+     * @var Collection<int, Media>
+     */
+    #[ORM\OneToMany(targetEntity: Media::class, mappedBy: 'user')]
+    private Collection $medias;
+
+    #[ORM\Column(length: 255)]
     private ?string $pseudo = null;
 
     public function __construct()
     {
         $this->comment = new ArrayCollection();
-        $this->aime = new ArrayCollection();
-        $this->abonnees = new ArrayCollection();
+        $this->likes = new ArrayCollection();
+        $this->medias = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -165,29 +166,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Aime>
+     * @return Collection<int, Like>
      */
-    public function getAime(): Collection
+    public function getLikes(): Collection
     {
-        return $this->aime;
+        return $this->likes;
     }
 
-    public function addAime(Aime $aime): static
+    public function addLike(Like $like): static
     {
-        if (!$this->aime->contains($aime)) {
-            $this->aime->add($aime);
-            $aime->setUser($this);
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeAime(Aime $aime): static
+    public function removeLike(Like $like): static
     {
-        if ($this->aime->removeElement($aime)) {
+        if ($this->likes->removeElement($like)) {
             // set the owning side to null (unless already changed)
-            if ($aime->getUser() === $this) {
-                $aime->setUser(null);
+            if ($like->getUser() === $this) {
+                $like->setUser(null);
             }
         }
 
@@ -195,29 +196,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Abonnees>
+     * @return Collection<int, Media>
      */
-    public function getAbonnees(): Collection
+    public function getMedias(): Collection
     {
-        return $this->abonnees;
+        return $this->medias;
     }
 
-    public function addAbonnee(Abonnees $abonnee): static
+    public function addMedia(Media $media): static
     {
-        if (!$this->abonnees->contains($abonnee)) {
-            $this->abonnees->add($abonnee);
-            $abonnee->setUser($this);
+        if (!$this->medias->contains($media)) {
+            $this->medias->add($media);
+            $media->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeAbonnee(Abonnees $abonnee): static
+    public function removeMedia(Media $media): static
     {
-        if ($this->abonnees->removeElement($abonnee)) {
+        if ($this->medias->removeElement($media)) {
             // set the owning side to null (unless already changed)
-            if ($abonnee->getUser() === $this) {
-                $abonnee->setUser(null);
+            if ($media->getUser() === $this) {
+                $media->setUser(null);
             }
         }
 
@@ -229,7 +230,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->pseudo;
     }
 
-    public function setPseudo(?string $pseudo): static
+    public function setPseudo(string $pseudo): static
     {
         $this->pseudo = $pseudo;
 

@@ -8,26 +8,26 @@
 
     <table>
         <tr>
-            <th>Musique :</th>
+            <th>Category :</th>
             <th scope="col">Voir</th>
             <th scope="col">Remove</th>
             <th scope="col">Edit</th>
 
         </tr>
-        <a href="{{path('admin_musique_add')}}">Add</a>
-        {% for musique in musiques %}
+        <a href="{{path('admin_category_add')}}">Add</a>
+        {% for category in categories %}
         <tr>
             <td>
-                {{musique.name}}
+                {{category.name}}
             </td>
             <td>
-                <a href="{{ path('admin_musique_show', {'id': musique.id}) }}">Voir</a>
+                <a href="{{ path('admin_category_show', {'id': category.id}) }}">Voir</a>
             </td>
             <td>
-                <a href="{{ path('admin_musique_delete', {'id': musique.id}) }}">Supprimer</a>
+                <a href="{{ path('admin_category_delete', {'id': category.id}) }}">Supprimer</a>
             </td>
             <td>
-                <a href="{{path('admin_musique_edit',{id : musique.id})}}">Edit</a>
+                <a href="{{path('admin_category_edit',{id : category.id})}}">Edit</a>
             </td>
 
         </tr>

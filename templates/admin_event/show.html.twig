@@ -4,23 +4,39 @@
 
 {% block section %}
 
-<br>
-<p>Title : {{ event.name }}</p>
-<br>
-<p>Date : {{ event.date }}</p>
-<br>
-<p>Lien : {{ event.url }}</p>
-<br>
-<p>Artiste : {{ event.artiste.name }}</p>
-<br>
-<p>Musique : {{ event.musique.name }}</p>
-<br>
-<p>Content : {{ event.content }}</p>
-<br>
-<p>Image : {{ event.image }}</p>
+<div class="show-single">
+    <br>
+    <p>Title : {{ event.name }}</p>
+    <br>
+    <tr>
+        <td>
+            {% if event.image %}
+                <img src="{{ asset(event.image) }}" alt="Image de l'event" style="max-width: 200px;">
+            {% else %}
+                <em>Aucune image</em>
+            {% endif %}
+        </td>
+    </tr>
+    <br>
+    <p>Date Start: {{ event.dateStart|date('d/m/Y H:i') }}</p>
+    <br>
+    <p>Date End: {{ event.dateEnd|date('d/m/Y H:i') }}</p>
+    <br>
+    <p>Lien : {{ event.url }}</p>
+    <br>
+    <p>Artiste :     
+        {% if event.artistes|length > 0 %}
+            {% for artiste in event.artistes %}
+                {{ artiste.name }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        {% else %}
+            Aucun artiste associé
+        {% endif %}
+    </p>
+    <br>
+    <p>Content : {{ event.content }}</p>
+    <br>
+</div>
 
-
-
-<button type="submit">Soumettre</button>
 
 {% endblock %}

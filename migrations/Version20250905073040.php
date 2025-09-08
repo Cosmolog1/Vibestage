@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250828142644 extends AbstractMigration
+final class Version20250905073040 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,7 +21,7 @@ final class Version20250828142644 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
-            ALTER TABLE location DROP region, DROP departement
+            ALTER TABLE event CHANGE date date_start DATE NOT NULL
         SQL);
     }
 
@@ -29,7 +29,7 @@ final class Version20250828142644 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
-            ALTER TABLE location ADD region VARCHAR(255) DEFAULT NULL, ADD departement VARCHAR(255) DEFAULT NULL
+            ALTER TABLE event CHANGE date_start date DATE NOT NULL
         SQL);
     }
 }

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminCategoryController!{% endblock %}
+
+{% block body %}
+
+<div class="show-single">
+    <br>
+    <h2>{{ event.name }}</h2>
+    <br>
+    <tr>
+        <div class = "show-single-image">
+            <td>
+                {% if event.image %}
+                    <img src="{{ asset(event.image) }}" alt="Image de l'event">
+                {% else %}
+                    <em>Aucune image</em>
+                {% endif %}
+            </td>
+        </div>
+    </tr>
+    <br>
+    <p>Date Start : {{ event.dateStart|date('d/m/Y H:i') }}</p>
+    <br>
+    <p>Date End : {{ event.dateEnd|date('d/m/Y H:i') }}</p>
+    <br>
+    <p>Lien : {{ event.url }}</p>
+    <br>
+    <p>Artiste :     
+        {% if event.artistes|length > 0 %}
+            {% for artiste in event.artistes %}
+                {{ artiste.name }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        {% else %}
+            Aucun artiste associé
+        {% endif %}
+    </p>
+    <br>
+    <p>Content : <br><br>{{ event.content }}</p>
+    <br>
+</div>
+
+
+{% endblock %}

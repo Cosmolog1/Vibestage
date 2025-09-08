@@ -6,9 +6,6 @@ use App\Entity\Artiste;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Artiste>
- */
 class ArtisteRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -16,28 +13,44 @@ class ArtisteRepository extends ServiceEntityRepository
         parent::__construct($registry, Artiste::class);
     }
 
-    //    /**
-    //     * @return Artiste[] Returns an array of Artiste objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('a.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findByFilters(?string $country, ?int $categoryId): array
+    {
+        $qb = $this->createQueryBuilder('a');
 
-    //    public function findOneBySomeField($value): ?Artiste
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if ($country) {
+            $qb->andWhere('a.country = :country')
+                ->setParameter('country', $country);
+        }
+
+        if ($categoryId) {
+            $qb->join('a.categories', 'c')
+                ->andWhere('c.id = :categoryId')
+                ->setParameter('categoryId', $categoryId);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findDistinctCountries(): array
+    {
+        return array_column(
+            $this->createQueryBuilder('a')
+                ->select('DISTINCT a.country')
+                ->getQuery()
+                ->getScalarResult(),
+            'country'
+        );
+    }
+
+
+    public function findDistinctCategories(): array
+    {
+        return array_column(
+            $this->createQueryBuilder('a')
+                ->select('DISTINCT a.category')
+                ->getQuery()
+                ->getScalarResult(),
+            'category'
+        );
+    }
 }

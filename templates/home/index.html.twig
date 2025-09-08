@@ -3,32 +3,98 @@
 {% block body %}
 
 
-    <h4 class="h3-caroussel">Artistes populaires</h4>
-    <div class="caroussel-artiste">
-        {% for artiste in artistes %}
-            <div class="card-artiste">
-               <img 
-                    class="card-img-top" 
-                    src="{{ asset(artiste.image ?? 'images/default.jpg') }}" alt={{ artiste.name }}>
-                <div class="overlay-card">
-                    <span class="card-name">{{ artiste.name }}</span>
-                </div>
-            </div>
-        {% endfor %}
+
+    <div class="p-presentation">
+        <p>Bienvenue sur Vibestage, votre plateforme dédiée à toute l’actualité musicale.<br>
+            Restez informés des concerts, festivals et tournées à ne pas manquer, en France comme à l’international.<br>
+            Explorez les différentes catégories par genre ou par artiste pour ne rien rater de la scène musicale.<br>
+            Que vous soyez fan de pop, rock, rap, électro ou jazz, Vibestage vous plonge au cœur de l’univers musical.<br>
+            Avec nous, la musique ne s’écoute plus seulement, elle se vit, se partage et se célèbre chaque jour !<br>
+        </p>
     </div>
-    
-    <h4 class="h3-caroussel">Événements populaires</h4>
-    <div class="caroussel-artiste">
-        {% for event in events %}
-            <div class="card-artiste">
-                <img 
-                    class="card-img-top" 
-                    src="{{ asset(event.image ?? 'images/default.jpg') }}" alt="{{ event.name }}">
-                <div class="overlay-card">
-                    <span class="card-name">{{ event.name }}</span>
+
+    <div class="carrousel-artiste-event">
+                {# 🔽 Filtres 🔽 #}
+        <div class="filters-container">
+            <form method="get" action="{{ path('home') }}" class="filters-form">
+
+                <h3>Filtrer les artistes</h3>
+                <div class="filters-row">
+                    <label for="artist_country">Pays :</label>
+                    <select name="artist_country" id="artist_country">
+                        <option value="">Tous</option>
+                        {% for country in countries %}
+                            <option value="{{ country }}" 
+                                {% if app.request.get('artist_country') == country %}selected{% endif %}>
+                                {{ country }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="artist_category">Musique :</label>
+                    <select name="artist_category" id="artist_category">
+                        <option value="">Toutes</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" 
+                                {% if app.request.get('artist_category') == category %}selected{% endif %}>
+                                {{ category.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
                 </div>
-            </div>
-        {% endfor %}
+
+                <h3>Filtrer les événements</h3>
+                <div class="filters-row">
+                    <label for="event_country">Pays :</label>
+                    <select name="event_country" id="event_country">
+                        <option value="">Tous</option>
+                        {% for country in countries %}
+                            <option value="{{ country }}" 
+                                {% if app.request.get('event_country') == country %}selected{% endif %}>
+                                {{ country }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br>
+
+                <button type="submit">Appliquer</button>
+            </form>
+        </div>
+        {# 🔼 Fin filtres 🔼 #}
+        <div class="h3-caroussel-wrapper">
+            <h4 class="h3-caroussel">Artistes populaires</h4>
+        </div>
+        <div class="caroussel-artiste">
+            {% for artiste in artistes %}
+                <div class="card-artiste">
+                    <a href="{{ path('single_artiste', {id:artiste.id}) }}"><img 
+                        class="card-img-top" 
+                        src="{{ asset(artiste.image ?? 'images/default.jpg') }}" alt={{ artiste.name }}></a>
+                    <div class="overlay-card">
+                        <span class="card-name">{{ artiste.name }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    
+        <div class="h3-caroussel-wrapper">
+            <h4 class="h3-caroussel">Événements populaires</h4>
+        </div>
+        <div class="caroussel-artiste">
+            {% for event in events %}
+                <div class="card-artiste">
+                    <a href="{{ path('single_event', {id:event.id}) }}">
+                        <img 
+                        class="card-img-top" 
+                        src="{{ asset(event.image ?? 'images/default.jpg') }}" alt="{{ event.name }}">
+                    </a>
+                    <div class="overlay-card">
+                        <span class="card-name">{{ event.name }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock %}

@@ -35,25 +35,29 @@ class Artiste
     private ?string $image = null;
 
     /**
-     * @var Collection<int, Abonnees>
+     * @var Collection<int, Like>
      */
-    #[ORM\OneToMany(targetEntity: Abonnees::class, mappedBy: 'artiste')]
-    private Collection $abonnees;
+    #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'artiste')]
+    private Collection $likes;
 
-    #[ORM\ManyToOne(inversedBy: 'artistes')]
-    private ?Musique $musique = null;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Media $media = null;
-
+    /**
+     * @var Collection<int, Event>
+     */
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'artistes')]
     private Collection $events;
+
+    /**
+     * @var Collection<int, Category>
+     */
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'artistes')]
+    private Collection $categories;
 
 
     public function __construct()
     {
-        $this->abonnees = new ArrayCollection();
+        $this->likes = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -133,30 +137,33 @@ class Artiste
         return $this;
     }
 
+
+
+
     /**
-     * @return Collection<int, Abonnees>
+     * @return Collection<int, Like>
      */
-    public function getAbonnees(): Collection
+    public function getLikes(): Collection
     {
-        return $this->abonnees;
+        return $this->likes;
     }
 
-    public function addAbonnee(Abonnees $abonnee): static
+    public function addLike(Like $like): static
     {
-        if (!$this->abonnees->contains($abonnee)) {
-            $this->abonnees->add($abonnee);
-            $abonnee->setArtiste($this);
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setArtiste($this);
         }
 
         return $this;
     }
 
-    public function removeAbonnee(Abonnees $abonnee): static
+    public function removeLike(Like $like): static
     {
-        if ($this->abonnees->removeElement($abonnee)) {
+        if ($this->likes->removeElement($like)) {
             // set the owning side to null (unless already changed)
-            if ($abonnee->getArtiste() === $this) {
-                $abonnee->setArtiste(null);
+            if ($like->getArtiste() === $this) {
+                $like->setArtiste(null);
             }
         }
 
@@ -175,7 +182,7 @@ class Artiste
     {
         if (!$this->events->contains($event)) {
             $this->events->add($event);
-            $event->addArtiste($this); // côté bidirectionnel
+            $event->addArtiste($this);
         }
 
         return $this;
@@ -184,32 +191,32 @@ class Artiste
     public function removeEvent(Event $event): static
     {
         if ($this->events->removeElement($event)) {
-            $event->removeArtiste($this); // côté bidirectionnel
+            $event->removeArtiste($this);
         }
 
         return $this;
     }
 
-    public function getMusique(): ?Musique
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
     {
-        return $this->musique;
+        return $this->categories;
     }
 
-    public function setMusique(?Musique $musique): static
+    public function addCategory(Category $category): static
     {
-        $this->musique = $musique;
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+        }
 
         return $this;
     }
 
-    public function getMedia(): ?Media
+    public function removeCategory(Category $category): static
     {
-        return $this->media;
-    }
-
-    public function setMedia(?Media $media): static
-    {
-        $this->media = $media;
+        $this->categories->removeElement($category);
 
         return $this;
     }

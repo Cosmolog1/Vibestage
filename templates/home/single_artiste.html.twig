@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminCategoryController!{% endblock %}
+
+{% block body %}
+
+<div class="show-single">
+    <br>
+    <h2>{{ artiste.name }}</h2>
+    <br>
+    <tr>
+        <div class = "show-single-image">
+            <td>
+                {% if artiste.image %}
+                    <img src="{{ asset(artiste.image) }}" alt="Image de l'artiste">
+                {% else %}
+                    <em>Aucune image</em>
+                {% endif %}
+            </td>
+        </div>
+    </tr>
+
+    <br>
+    <p>Musique : {% for category in artiste.categories %}
+                {{ category.name }}
+            {% else %}
+                <span>Aucune catégorie</span>
+            {% endfor %}</p>
+    <br>
+    <p>Genre : {{ artiste.genre }}</p>
+    <br>
+    <p>Abonnées : {{ artiste.nbAbonne }}</p>
+    <br>
+    <p>Content : <br><br>{{ artiste.content }}</p>
+    <br>
+    <p>Country : {{ artiste.country }}</p> 
+    <br>
+</div>
+
+
+{% endblock %}

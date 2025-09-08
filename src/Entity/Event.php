@@ -20,7 +20,7 @@ class Event
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $date = null;
+    private ?\DateTime $dateStart = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $url = null;
@@ -36,14 +36,7 @@ class Event
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'event')]
     private Collection $comment;
 
-    /**
-     * @var Collection<int, Aime>
-     */
-    #[ORM\OneToMany(targetEntity: Aime::class, mappedBy: 'event')]
-    private Collection $aime;
 
-    #[ORM\ManyToOne(inversedBy: 'events')]
-    private ?Musique $musique = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Media $media = null;
@@ -57,17 +50,29 @@ class Event
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTime $dateEnd = null;
+
+    /**
+     * @var Collection<int, Like>
+     */
+    #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'event')]
+    private Collection $likes;
+
     /**
      * @var Collection<int, Artiste>
      */
     #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'events')]
     private Collection $artistes;
 
+
+
     public function __construct()
     {
         $this->comment = new ArrayCollection();
-        $this->aime = new ArrayCollection();
         $this->location = new ArrayCollection();
+        $this->likes = new ArrayCollection();
         $this->artistes = new ArrayCollection();
     }
 
@@ -88,14 +93,14 @@ class Event
         return $this;
     }
 
-    public function getDate(): ?\DateTime
+    public function getDateStart(): ?\DateTime
     {
-        return $this->date;
+        return $this->dateStart;
     }
 
-    public function setDate(\DateTime $date): static
+    public function setDateStart(\DateTime $dateStart): static
     {
-        $this->date = $date;
+        $this->dateStart = $dateStart;
 
         return $this;
     }
@@ -156,47 +161,6 @@ class Event
         return $this;
     }
 
-    /**
-     * @return Collection<int, Aime>
-     */
-    public function getAime(): Collection
-    {
-        return $this->aime;
-    }
-
-    public function addAime(Aime $aime): static
-    {
-        if (!$this->aime->contains($aime)) {
-            $this->aime->add($aime);
-            $aime->setEvent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAime(Aime $aime): static
-    {
-        if ($this->aime->removeElement($aime)) {
-            // set the owning side to null (unless already changed)
-            if ($aime->getEvent() === $this) {
-                $aime->setEvent(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getMusique(): ?Musique
-    {
-        return $this->musique;
-    }
-
-    public function setMusique(?Musique $musique): static
-    {
-        $this->musique = $musique;
-
-        return $this;
-    }
 
     public function getMedia(): ?Media
     {
@@ -246,6 +210,49 @@ class Event
         return $this;
     }
 
+
+    public function getDateEnd(): ?\DateTime
+    {
+        return $this->dateEnd;
+    }
+
+    public function setDateEnd(\DateTime $dateEnd): static
+    {
+        $this->dateEnd = $dateEnd;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Like>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): static
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Like $like): static
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getEvent() === $this) {
+                $like->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Artiste>
      */
@@ -258,7 +265,6 @@ class Event
     {
         if (!$this->artistes->contains($artiste)) {
             $this->artistes->add($artiste);
-            $artiste->addEvent($this);
         }
 
         return $this;
@@ -266,9 +272,7 @@ class Event
 
     public function removeArtiste(Artiste $artiste): static
     {
-        if ($this->artistes->removeElement($artiste)) {
-            $artiste->removeEvent($this); // ✅ côté inverse
-        }
+        $this->artistes->removeElement($artiste);
 
         return $this;
     }
