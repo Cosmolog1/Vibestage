@@ -1,0 +1,39 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Hello AdminIngredientController!{% endblock %}
+
+{% block section %}
+
+<section class="container">
+
+    <table>
+        <tr>
+            <th>Comment :</th>
+            <th scope="col">Voir</th>
+            <th scope="col">Remove</th>
+            <th scope="col">Edit</th>
+
+        </tr>
+        {% for comment in comments %}
+        <tr>
+            <td>
+                {{ comment.user ? comment.user.pseudo : '' }}
+                {{ comment.artiste ? comment.artiste.name : '' }}
+                {{ comment.event ? comment.event.name : '' }}
+                {{ comment.content }}
+                <br><br>
+            </td>
+            <td>
+                <a href="{{ path('admin_comment_show', {'id': comment.id}) }}">Voir</a>
+            </td>
+            <td>
+                <a href="{{ path('admin_comment_delete', {'id': comment.id}) }}">Supprimer</a>
+            </td>
+        </tr>
+
+        </body>
+        {% endfor %}
+    </table>
+</section>
+
+{% endblock %}

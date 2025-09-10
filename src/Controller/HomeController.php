@@ -64,13 +64,18 @@ final class HomeController extends AbstractController
     ): Response {
         $artiste = $ArtisteRepository->find($id);
 
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $comment = new Comment();
         $form = $this->createForm(CommentFormType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setArtiste($artiste);
+            $comment->setUser($this->getUser());
+            $comment->setCreatedAt(new \DateTimeImmutable()); // pour la création
             $comment->setUpdateAt(new \DateTimeImmutable());
+
             $entityManager->persist($comment);
             $entityManager->flush();
 
@@ -82,7 +87,8 @@ final class HomeController extends AbstractController
 
         return $this->render('home/single_artiste.html.twig', [
             'form' => $form->createView(),
-            'artiste' => $artiste
+            'artiste' => $artiste,
+            'comments' => $artiste->getComments()
         ]);
     }
 
@@ -96,13 +102,17 @@ final class HomeController extends AbstractController
     ): Response {
         $event = $EventRepository->find($id);
 
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $comment = new Comment();
         $form = $this->createForm(CommentFormType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setEvent($event);
+            $comment->setUser($this->getUser());
             $comment->setUpdateAt(new \DateTimeImmutable());
+            $comment->setCreatedAt(new \DateTimeImmutable());
             $entityManager->persist($comment);
             $entityManager->flush();
 
@@ -114,7 +124,8 @@ final class HomeController extends AbstractController
 
         return $this->render('home/single_event.html.twig', [
             'form' => $form->createView(),
-            'event' => $event
+            'event' => $event,
+            'comments' => $event->getComments()
         ]);
     }
 }

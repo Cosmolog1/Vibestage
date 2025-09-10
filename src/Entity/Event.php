@@ -34,7 +34,33 @@ class Event
      * @var Collection<int, Comment>
      */
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'event')]
-    private Collection $comment;
+    private Collection $comments;
+
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            if ($comment->getEvent() === $this) {
+                $comment->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
 
 
     /**
@@ -66,7 +92,7 @@ class Event
 
     public function __construct()
     {
-        $this->comment = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->location = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->artistes = new ArrayCollection();
@@ -122,37 +148,6 @@ class Event
     public function setContent(string $content): static
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-
-    /**
-     * @return Collection<int, Comment>
-     */
-    public function getComment(): Collection
-    {
-        return $this->comment;
-    }
-
-    public function addComment(Comment $comment): static
-    {
-        if (!$this->comment->contains($comment)) {
-            $this->comment->add($comment);
-            $comment->setEvent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): static
-    {
-        if ($this->comment->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
-            if ($comment->getEvent() === $this) {
-                $comment->setEvent(null);
-            }
-        }
 
         return $this;
     }
