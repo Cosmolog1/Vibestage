@@ -69,6 +69,8 @@ final class HomeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setArtiste($artiste);
+            $comment->setUpdateAt(new \DateTimeImmutable());
             $entityManager->persist($comment);
             $entityManager->flush();
 
@@ -99,6 +101,8 @@ final class HomeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setEvent($event);
+            $comment->setUpdateAt(new \DateTimeImmutable());
             $entityManager->persist($comment);
             $entityManager->flush();
 

@@ -1,6 +1,6 @@
-{# {% extends 'base.html.twig' %} #}
 <!DOCTYPE html>
 <html>
+    
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -13,7 +13,59 @@
 {# {% block title %}Log in!{% endblock %} #}
 
 {% block body %}
+<div class="login-page">
+    <form method="post" class="login-form">
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
 
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }},
+                <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <h1>Please sign in</h1>
+
+        <label for="inputEmail">Email</label>
+        <input type="email"
+               value="{{ last_username }}"
+               name="email"
+               id="inputEmail"
+               class="form-control"
+               autocomplete="email"
+               required autofocus>
+
+        <br><br>
+        <label for="inputPassword">Password</label>
+        <input type="password"
+               name="password"
+               id="inputPassword"
+               class="form-control"
+               autocomplete="current-password"
+               required>
+
+        <br><br>
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}">
+
+       
+        <div class="form-check my-3">
+            <input type="checkbox" class="form-check-input" name="_remember_me" id="rememberMe">
+            <label class="form-check-label" for="rememberMe">Remember me</label>
+        </div>
+
+        <br>
+        <button class="btn btn-primary w-100" type="submit">
+            Sign in
+        </button>
+        <br>
+        <a href = "{{path('home')}}"><button class="btn btn-login w-100" type="button">Return Home</button></a>
+    </form>
+</div>
 {% endblock %}
 
  {% block javascripts %}

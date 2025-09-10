@@ -14,27 +14,32 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register', methods: ['POST'])]
+    #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
     {
-        $email = $request->request->get('email');
-        $password = $request->request->get('password');
-        $pseudo = $request->request->get('pseudo');
+        if ($request->isMethod('POST')) {
+            $email = $request->request->get('email');
+            $password = $request->request->get('password');
+            $pseudo = $request->request->get('pseudo');
 
-        if (!$email || !$password) {
-            $this->addFlash('error', 'Email et mot de passe sont requis.');
-            return $this->redirectToRoute('app_login');
+            if (!$email || !$password) {
+                $this->addFlash('error', 'Email et mot de passe sont requis.');
+                return $this->redirectToRoute('app_register');
+            }
+
+            $user = new User();
+            $user->setEmail($email);
+            $user->setPseudo($pseudo);
+            $user->setPassword($userPasswordHasher->hashPassword($user, $password));
+            $user->setRoles(['ROLE_USER']);
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $security->login($user, AppCustomAuthenticator::class, 'main');
         }
 
-        $user = new User();
-        $user->setEmail($email);
-        $user->setPseudo($pseudo); // si le champ existe
-        $user->setPassword($userPasswordHasher->hashPassword($user, $password));
-        $user->setRoles(['ROLE_USER']);
-
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        return $security->login($user, AppCustomAuthenticator::class, 'main');
+        // GET → afficher le formulaire
+        return $this->render('registration/register.html.twig');
     }
 }

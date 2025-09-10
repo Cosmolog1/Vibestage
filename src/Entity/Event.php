@@ -37,10 +37,6 @@ class Event
     private Collection $comment;
 
 
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Media $media = null;
-
     /**
      * @var Collection<int, Location>
      */
@@ -157,19 +153,6 @@ class Event
                 $comment->setEvent(null);
             }
         }
-
-        return $this;
-    }
-
-
-    public function getMedia(): ?Media
-    {
-        return $this->media;
-    }
-
-    public function setMedia(?Media $media): static
-    {
-        $this->media = $media;
 
         return $this;
     }

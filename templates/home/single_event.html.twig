@@ -38,6 +38,17 @@
     <br>
     <p>Content : <br><br>{{ event.content }}</p>
     <br>
+    <div class = "comment">
+        <ul>
+            {% for comment in event.comment %}
+                <li>{{ comment.content }}</li>
+            {% endfor %}
+        </ul>                          
+        {{ form_start(form) }}
+        {{ form_row(form.content) }}
+        <button type="submit">Soumettre</button>
+        {{ form_end(form) }}
+    </div>
 </div>
 
 

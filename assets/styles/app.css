@@ -3,8 +3,10 @@ body {
     background-color: #b94343;
 	margin: 0;
     padding: 0;
-	font-family: 'Roboto', sans-serif;
+    font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
 }
+
+
 
 
 html {
@@ -14,7 +16,7 @@ html {
 /* Css du header  */
 
 nav {
-    font-size: 40px;
+    font-size: 50px;
     display: flex;
     justify-content: space-between;
     align-content : center;
@@ -49,7 +51,7 @@ nav a{
 menu{
     display: flex;
     justify-content: center;
-    font-size: 30px;
+    font-size: 40px;
     padding: 50px;
 }
 
@@ -61,7 +63,7 @@ button{
     background-color: rgb(220, 37, 79);
     box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 12%) 0px 1px 1px 0px, rgb(84 105 212) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px;
     border-radius: 4px;
-    font-size: 18px;
+    font-size: 28px;
     font-weight: 500;
     padding: 4px 8px;
     display: inline-block;
@@ -76,19 +78,16 @@ button{
 
 
 .foot{
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    align-items: baseline;
-    justify-items: center;
-    font-size: 40px;
-	background-image: url(https://images.pexels.com/photos/185030/pexels-photo-185030.jpeg);
+    font-size: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+	background-image: url(https://i.pinimg.com/1200x/79/c7/05/79c705518c55275bf983fcd7145bc4b3.jpg);
 	background-repeat: no-repeat;
     background-size: cover;  /* L'image couvre tout l'espace */
     background-position: center; /* Centre l'image */
 	margin-top: 80px;
+    padding: 20px;
 }
 
 .foot a{
@@ -100,19 +99,7 @@ button{
     color: #ff0040;
 }
 
-#copy {
-  grid-area: 1 / 1 / 6 / 2;
-}
 
-.center {
-  grid-area: 1 / 3 / 6 / 4;
-  display: grid;
-  justify-items: center;
-}
-
-#part {
-   grid-area: 1 / 5 / 6 / 6;
-}
 
 
 /* Css du carroussel  */
@@ -137,7 +124,7 @@ button{
 .h3-caroussel {
     margin-top: 50px;
     color: #C9871E;
-    font-size: 40px;
+    font-size: 50px;
     display: inline-block;        /* limite la largeur au texte + padding */
     background-color: #11053eb6;  /* couleur du fond */
     padding: 10px 20px;           /* espace autour du texte */
@@ -201,7 +188,7 @@ button{
 .card-name {
   color: #C9871E;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 30px;
 }
 
 p, td, th{
@@ -219,7 +206,7 @@ p, td, th{
 	align-content : center;
 	margin: 0;
     padding: 0;
-	font-size: 40px;
+	font-size: 50px;
 }
 
 .img-intro-gauche {
@@ -250,13 +237,13 @@ p, td, th{
 
 .p-presentation{
     color: #C9871E;
-    font-size: 26px;
+    font-size: 36px;
     text-align: center;          /* centre le texte horizontalement */           
     margin: 0 auto;              /* centre le bloc horizontalement */
     padding: 20px 15px;          /* ajoute de l’espace autour du texte */
     line-height: 1.6;
 	margin-bottom: 80px;
-	background-image: url(https://i.pinimg.com/736x/26/31/5d/26315dd6d8b9972744f4d854f4d5b70d.jpg); 
+	background-image: url(https://i.pinimg.com/736x/c7/6d/fc/c76dfc48e92740a63c134878f21a979d.jpg); 
 	background-repeat: no-repeat;
     background-size: cover;  /* L'image couvre tout l'espace */
     background-position: center; /* Centre l'image */
@@ -264,15 +251,11 @@ p, td, th{
 }
 
 
-/* Css du formulaire log  */
-
-
-
-
 /* Css du filtre */
 
 .filters-container{
-	background-color: #e35555;
+	background-image: url(https://i.pinimg.com/736x/70/41/ab/7041aba98f0d2e8b788d11184bf5ac30.jpg);
+    background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -284,10 +267,21 @@ p, td, th{
     padding-bottom: 30px
 }
 
+.filters-container label{
+    font-size: 26px;
+    color: #C9871E;
+}
+
+.filters-container h3{
+    font-size: 36px;
+    color: #C9871E;
+}
+
+
 .filters-form select {
     width: 200px;      /* largeur du select */
     padding: 6px 10px; /* espace intérieur */
-    font-size: 16px;   /* taille du texte */
+    font-size: 26px;   /* taille du texte */
     border-radius: 4px; /* coins arrondis */
     border: 1px solid #ccc; /* bordure */
 }
@@ -295,7 +289,7 @@ p, td, th{
 .filters-form button {
     width: 200px;      /* largeur du select */
     padding: 6px 10px; /* espace intérieur */
-    font-size: 16px;   /* taille du texte */
+    font-size: 26px;   /* taille du texte */
     border-radius: 4px; /* coins arrondis */
     border: 1px solid #ccc; /* bordure */
 }
@@ -318,6 +312,76 @@ p, td, th{
 
 .show-single h2{
     color: #C9871E;
-    font-size: 50px;
+    font-size: 60px;
 }
 
+/* Css du formulaire */
+
+.login-page {
+  min-height: 100vh;                /* prend toute la hauteur */
+  display: flex;
+  justify-content: center;          /* centre horizontalement */
+  align-items: center;              /* centre verticalement */
+ 
+    background-image: url(https://i.pinimg.com/1200x/75/f5/84/75f584ac49c463e48a04c7a748da9ac9.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;  /* L'image couvre tout l'espace */
+    background-position: center; /* Centre l'image */
+    padding-top: 50px; /* espace au-dessus du contenu sans trou dans le background */
+
+}
+
+.login-form {   
+    background: #f0f0f0;
+    padding: 2rem 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+   
+
+.login-form h1 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.login-form label {
+  font-size: 1.4rem;
+  margin-top: 1rem;
+}
+
+.login-form .form-control {
+  font-size: 1.4rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.login-form .btn {
+  font-size: 1.4rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+}
+
+/* Css du commentaire */
+
+.comment{
+    background: #f0f0f0;
+    padding: 2rem 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    }

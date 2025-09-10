@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\User;
-use App\Entity\Event;
 use App\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,20 +21,11 @@ class CommentFormType extends AbstractType
             ->add('content', TextType::class, [
                 "label" => "Contenu du commentaire",
                 "required" => true,
-            ])
-            ->add('note', NumberType::class, [
-                "label" => "Note attribuer",
-                "required" => true,
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
-            ->add('event', EntityType::class, [
-                'class' => Event::class,
-                'choice_label' => 'id',
-            ])
-        ;
+            ]);
+        // ->add('user', EntityType::class, [
+        //     'class' => User::class,
+        //     'choice_label' => 'id',
+        // ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

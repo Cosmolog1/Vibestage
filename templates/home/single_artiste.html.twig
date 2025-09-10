@@ -35,7 +35,19 @@
     <br>
     <p>Country : {{ artiste.country }}</p> 
     <br>
+    <div class = "comment">
+        <ul>
+            {% for comment in artiste.comments %}
+                <li>{{ comment.content }}</li>
+            {% endfor %}
+        </ul>                          
+        {{ form_start(form) }}
+        {{ form_row(form.content) }}
+        <button type="submit">Soumettre</button>
+        {{ form_end(form) }}
+    </div>
 </div>
+
 
 
 {% endblock %}

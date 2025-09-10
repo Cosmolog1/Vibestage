@@ -15,19 +15,20 @@ class Comment
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $createdAt = null;
+    private \DateTimeInterface $createdAt;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $updateAt = null;
+    private ?\DateTimeInterface $updateAt;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\Column]
-    private ?int $note = null;
-
     #[ORM\ManyToOne(inversedBy: 'comment')]
     private ?Event $event = null;
+
+    #[ORM\ManyToOne(inversedBy: 'comment')]
+    private ?Artiste $artiste = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'comment')]
     private ?User $user = null;
@@ -37,29 +38,37 @@ class Comment
         return $this->id;
     }
 
-    public function getCreatedAt(): ?\DateTime
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updateAt = new \DateTimeImmutable();
+    }
+
+
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): static
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTime
+    public function getUpdateAt(): ?\DateTimeInterface
     {
         return $this->updateAt;
     }
 
-    public function setUpdateAt(\DateTime $updateAt): static
+    public function setUpdateAt(?\DateTimeInterface $updateAt): static
     {
         $this->updateAt = $updateAt;
 
         return $this;
     }
+
 
     public function getContent(): ?string
     {
@@ -73,18 +82,6 @@ class Comment
         return $this;
     }
 
-    public function getNote(): ?int
-    {
-        return $this->note;
-    }
-
-    public function setNote(int $note): static
-    {
-        $this->note = $note;
-
-        return $this;
-    }
-
     public function getEvent(): ?Event
     {
         return $this->event;
@@ -93,6 +90,19 @@ class Comment
     public function setEvent(?Event $event): static
     {
         $this->event = $event;
+
+        return $this;
+    }
+
+
+    public function getArtiste(): ?Artiste
+    {
+        return $this->artiste;
+    }
+
+    public function setArtiste(?Artiste $artiste): static
+    {
+        $this->artiste = $artiste;
 
         return $this;
     }

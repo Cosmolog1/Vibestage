@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Event;
-use App\Entity\Media;
 use App\Entity\Artiste;
 use App\Entity\Category;
 use App\Entity\Location;
@@ -50,10 +49,6 @@ class EventFormType extends AbstractType
                 "required" => true,
             ])
 
-            ->add('media', EntityType::class, [
-                'class' => Media::class,
-                'choice_label' => 'id',
-            ])
             ->add('location', EntityType::class, [
                 'class' => Location::class,
                 "label" => "Nom de la ville",

@@ -46,12 +46,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'user')]
     private Collection $likes;
 
-    /**
-     * @var Collection<int, Media>
-     */
-    #[ORM\OneToMany(targetEntity: Media::class, mappedBy: 'user')]
-    private Collection $medias;
-
     #[ORM\Column(length: 255)]
     private ?string $pseudo = null;
 
@@ -59,7 +53,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->comment = new ArrayCollection();
         $this->likes = new ArrayCollection();
-        $this->medias = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -195,35 +188,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Media>
-     */
-    public function getMedias(): Collection
-    {
-        return $this->medias;
-    }
-
-    public function addMedia(Media $media): static
-    {
-        if (!$this->medias->contains($media)) {
-            $this->medias->add($media);
-            $media->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMedia(Media $media): static
-    {
-        if ($this->medias->removeElement($media)) {
-            // set the owning side to null (unless already changed)
-            if ($media->getUser() === $this) {
-                $media->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getPseudo(): ?string
     {

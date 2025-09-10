@@ -2,9 +2,9 @@ import "./bootstrap.js";
 import "./styles/app.css";
 
 console.log("This log comes from assets/app.js - welcome to AssetMapper! 🎉");
-
+const card = document.querySelector(".card");
 /* Animation image */
-function applySubtleRotation(card) {
+function applyClickAnimation(card) {
     card.classList.remove("subtle-rotate");
     card.offsetHeight; // Force le reflow
     card.classList.add("subtle-rotate");
@@ -15,6 +15,6 @@ function applySubtleRotation(card) {
 }
 
 // Au clic
-card.addEventListener("click", function () {
-    applyClickAnimation(this);
+card.addEventListener("click", function (e) {
+    applyClickAnimation(e.target.value);
 });
