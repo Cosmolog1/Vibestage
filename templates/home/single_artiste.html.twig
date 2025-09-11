@@ -4,37 +4,55 @@
 
 {% block body %}
 
-<div class="show-single">
-    <br>
-    <h2>{{ artiste.name }}</h2>
-    <br>
-    <tr>
-        <div class = "show-single-image">
-            <td>
-                {% if artiste.image %}
-                    <img src="{{ asset(artiste.image) }}" alt="Image de l'artiste">
+    <div class="show-single">
+        <br>
+            <h2>{{ artiste.name }}</h2>
+        <br>
+        <tr>
+            <div class = "show-single-image">
+                <td>
+                    {% if artiste.image %}
+                        <img src="{{ asset(artiste.image) }}" alt="Image de l'artiste">
+                    {% else %}
+                        <em>Aucune image</em>
+                    {% endif %}
+                </td>
+            </div>
+        </tr>
+        <br>
+        <p>Musique : {% for category in artiste.categories %}
+                    {{ category.name }}
                 {% else %}
-                    <em>Aucune image</em>
-                {% endif %}
-            </td>
-        </div>
-    </tr>
+                    <span>Aucune catégorie</span>
+                {% endfor %}</p>
+        <br>
+        <p>Genre : {{ artiste.genre }}</p>
+        <br>
+        <p>Abonnées : {{ artiste.nbAbonne }}</p>
+        <br>
+        <p>Content : <br><br>{{ artiste.content }}</p>
+        <br>
+        <p>Country : {{ artiste.country }}</p> 
+        <br>
+        {% if events is not empty %}
+            <h3 class="mt-5">🎫 Concerts à venir</h3>
+                <ul>
+                    {% for event in events %}
+                        <li class="mb-3">
+                            <strong>{{ event.name }}</strong><br>
+                            📍 {{ event._embedded.venues[0].name ?? '' }} - 
+                            {{ event._embedded.venues[0].city.name ?? '' }} ({{ event._embedded.venues[0].country.countryCode ?? '' }})<br>
+                            🗓️ {{ event.dates.start.localDate ?? '' }}<br>
+                            {% if event.url is defined %}
+                                <a href="{{ event.url }}" target="_blank" class="btn btn-primary btn-sm">Acheter un billet</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+        {% else %}
+            <p class="mt-5">Aucun concert trouvé pour {{ artiste.name }}.</p>
+        {% endif %}
 
-    <br>
-    <p>Musique : {% for category in artiste.categories %}
-                {{ category.name }}
-            {% else %}
-                <span>Aucune catégorie</span>
-            {% endfor %}</p>
-    <br>
-    <p>Genre : {{ artiste.genre }}</p>
-    <br>
-    <p>Abonnées : {{ artiste.nbAbonne }}</p>
-    <br>
-    <p>Content : <br><br>{{ artiste.content }}</p>
-    <br>
-    <p>Country : {{ artiste.country }}</p> 
-    <br>
     <div class="row d-flex justify-content-center">
             <div class="col-md-6 col-lg-12">
                 <div class="card shadow-0 border" style="background-color: #f0f2f5;">
@@ -85,8 +103,8 @@
             </div>
         </div>
     </div>
-
-
-
-
 {% endblock %}
+
+
+
+

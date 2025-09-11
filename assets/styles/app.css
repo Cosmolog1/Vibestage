@@ -1,4 +1,7 @@
 
+/* #34495e */
+/* #b94343 */
+
 body {
     background-color: #b94343;
 	margin: 0;
@@ -16,20 +19,18 @@ html {
 /* Css du header  */
 
 nav {
-    font-size: 50px;
     display: flex;
     justify-content: space-between;
     align-content : center;
     align-items: center;
     padding: 10px 0;
-	color:#007bff;
-	padding-inline-start: 40px;
-    padding-inline-end: 40px;
+}
+
+.logo img{
+width: 65px;
 }
 
 .user-pseudo {
-    background-color: #FF4B2B;  /* couleur de fond */
-    color: rgb(16, 54, 246);               /* couleur du texte */
     padding: 5px 10px;          /* espace intérieur comme un bouton */
     border-radius: 12px;        /* coins arrondis */
     font-weight: bold;          /* texte en gras */
@@ -37,15 +38,14 @@ nav {
 }
 
 header{
-    background-image: url(https://i.pinimg.com/736x/c6/af/7d/c6af7d9e637ccfdd3a68fd735cefea6b.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;  /* L'image couvre tout l'espace */
-    background-position: center; /* Centre l'image */
+    background-color: #e74c3c;
+    box-shadow: 3px 2px 6px 2px #b943435c;
+    color: #34495e;
 }
 
 nav a{
     text-decoration: none;
-    color:#ff0040;
+    color: #34495e;
 }
 
 menu{
@@ -55,48 +55,40 @@ menu{
     padding: 50px;
 }
 
-button{ 
-    border: 0;
-    outline: 0;
-    cursor: pointer;
-    color: white;
-    background-color: rgb(220, 37, 79);
-    box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 12%) 0px 1px 1px 0px, rgb(84 105 212) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px;
-    border-radius: 4px;
-    font-size: 28px;
-    font-weight: 500;
-    padding: 4px 8px;
-    display: inline-block;
-    min-height: 28px;
-    transition: background-color .24s,box-shadow .24s;
-    :hover {
-        box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 12%) 0px 1px 1px 0px, rgb(84 105 212) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 3px 9px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px;
-    }
+
+.vibestage-btn-red{
+        padding: 1rem 2rem;
+        border: none;
+        color: #FFF;
+        background-color: #b94343;
+        border-radius: 10px;
+}
+
+.vibestage-btn-black{
+        padding: 1rem 2rem;
+        border: none;
+        color: #FFF;
+        background-color: #34495e;
+        border-radius: 10px;
 }
 
 /* Css du footer  */
 
 
 .foot{
-    font-size: 50px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-	background-image: url(https://i.pinimg.com/1200x/79/c7/05/79c705518c55275bf983fcd7145bc4b3.jpg);
-	background-repeat: no-repeat;
-    background-size: cover;  /* L'image couvre tout l'espace */
-    background-position: center; /* Centre l'image */
-	margin-top: 80px;
-    padding: 20px;
+    padding: 2rem;
 }
 
 .foot a{
     text-decoration: none;
-    color: #ff0040;
+    color: #33495e;
 }
 
 .foot p{
-    color: #ff0040;
+    color: #33495e;
 }
 
 
@@ -105,11 +97,8 @@ button{
 /* Css du carroussel  */
 
 .carrousel-artiste-event{
-	background-image: url(https://images.pexels.com/photos/1690080/pexels-photo-1690080.jpeg);
-    background-repeat: no-repeat;
-    background-size: cover;  /* L'image couvre tout l'espace */
-    background-position: center; /* Centre l'image */
-	padding-top: 50px; /* espace au-dessus du contenu sans trou dans le background */
+	padding: 3rem;
+    background-color: #34495e;
 }
 
 .caroussel-artiste{
@@ -123,10 +112,10 @@ button{
 
 .h3-caroussel {
     margin-top: 50px;
-    color: #C9871E;
+    color: #b94343;
     font-size: 50px;
     display: inline-block;        /* limite la largeur au texte + padding */
-    background-color: #11053eb6;  /* couleur du fond */
+    background-color: #11053e49;  /* couleur du fond */
     padding: 10px 20px;           /* espace autour du texte */
     border-radius: 5px;           /* coins arrondis */
     text-align: center;            /* centre le texte à l'intérieur */
@@ -182,24 +171,48 @@ button{
   padding: 8px;
   background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
   display: flex;
-  align-items: flex-end; /* colle le texte en bas */
+  justify-content: center;
 }
 
 .card-name {
-  color: #C9871E;
+  color: #b94343;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 1.5rem;
+  text-shadow: 2px 2px 2px black;
+  font-family: "Poppins" !important;
+  text-align: center;
+
 }
 
-p, td, th{
-	color : #C9871E;
+p, td, th, button, label, input, select{
+    font-family: "Poppins" !important;
 
 }
+h1, h2, h3, h4{
+    font-family: "Raleway", sans-serif !important;
+}
 
+.h2-pres{
+    margin-bottom: 1.5rem;
+
+}
 /* Css de l'introduction */
 
+.intro{
+    background-color: #34495e;
+    color: #b94343 !important ;
+    padding: 3.5rem;
+
+    h1{
+        font-size: 3rem;
+    }
+    h2{
+        font-size: 1.5rem;
+        margin-top: 1rem;
+    }
+}
+
 .h1-intro, .h2-intro {
-	color:#C9871E;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction : column-reverse;
@@ -209,17 +222,14 @@ p, td, th{
 	font-size: 50px;
 }
 
-.img-intro-gauche {
+.img-intro-gauche, .img-intro-droite{
 	width: 300px;
     height: 350px;
 	border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 3px 2px 6px 2px #b943435c;
 }
 
-.img-intro-droite {
-	width: 300px;
-    height: 350px;
-	border-radius: 12px;
-}
 
 
 .intro-img {
@@ -229,69 +239,62 @@ p, td, th{
     align-items: center;
 	padding-inline-start: 40px;
 	padding-inline-end: 40px;
-	padding-top: 30px;
-	padding-bottom: 30px;
-	margin-bottom: 80px;
+    margin-top: 1.5rem;
 	
 }
 
 .p-presentation{
-    color: #C9871E;
-    font-size: 36px;
+    color: #34495e;
+    font-size: 1rem;
     text-align: center;          /* centre le texte horizontalement */           
-    margin: 0 auto;              /* centre le bloc horizontalement */
-    padding: 20px 15px;          /* ajoute de l’espace autour du texte */
-    line-height: 1.6;
-	margin-bottom: 80px;
-	background-image: url(https://i.pinimg.com/736x/c7/6d/fc/c76dfc48e92740a63c134878f21a979d.jpg); 
-	background-repeat: no-repeat;
-    background-size: cover;  /* L'image couvre tout l'espace */
-    background-position: center; /* Centre l'image */
-	font-weight: bold;
+    margin: 0 auto;               /* ajoute de l’espace autour du texte */
+    padding: 4rem;
+
+    img{
+        width: 300px;
+        border-radius: 10px;
+        box-shadow: 3px 2px 6px 2px #34495e40;
+        margin-bottom: 2rem;
+    }
 }
 
 
 /* Css du filtre */
 
 .filters-container{
-	background-image: url(https://i.pinimg.com/736x/70/41/ab/7041aba98f0d2e8b788d11184bf5ac30.jpg);
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    padding: 0 50px;
-    height: 100%;
-    text-align: center;
-    font-size: large;
-    padding-bottom: 30px
+
 }
 
+.filters-row{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.form-content{
+    width: 100%;
+    display: flex;
+    justify-content: center;}
+
 .filters-container label{
-    font-size: 26px;
-    color: #C9871E;
+    color: #b94343;
 }
 
 .filters-container h3{
-    font-size: 36px;
-    color: #C9871E;
+    color: #b94343;
+    font-size: 2.5rem;
+    margin: 0;
 }
 
 
 .filters-form select {
-    width: 200px;      /* largeur du select */
-    padding: 6px 10px; /* espace intérieur */
-    font-size: 26px;   /* taille du texte */
-    border-radius: 4px; /* coins arrondis */
-    border: 1px solid #ccc; /* bordure */
+
 }
 
 .filters-form button {
-    width: 200px;      /* largeur du select */
-    padding: 6px 10px; /* espace intérieur */
-    font-size: 26px;   /* taille du texte */
-    border-radius: 4px; /* coins arrondis */
-    border: 1px solid #ccc; /* bordure */
+
 }
 
 /* Css de la page solo */
@@ -301,18 +304,29 @@ p, td, th{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    font-size: xx-large;
-    background-image: url(https://i.pinimg.com/736x/09/67/56/096756d6b330c759128925a04c20367e.jpg);
+    font-size: x-large;
+    background-color: #33495e;
     min-height: 100vh; /* Prend toute la hauteur de l'écran */
     text-align: center; /* Centre le texte à l'intérieur des éléments */
-    background-size: cover; /* Pour que l'image couvre bien toute la div */
-    background-position: center; /* Centre l'image de fond */
-    background-repeat: no-repeat;
+    padding-bottom: 3em;
+}
+
+.show-single img{
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 3px 2px 6px 2px #b943435c;
+    max-width: 90%;
 }
 
 .show-single h2{
-    color: #C9871E;
+    color: #b94343;
     font-size: 60px;
+}
+
+.show-single p{
+    color: #b94343;
+    max-width: 90%;
+    
 }
 
 /* Css du formulaire */
@@ -344,6 +358,11 @@ p, td, th{
     justify-content: center;
     align-items: center;
 
+}
+
+.form-label {
+    margin-bottom: .5rem;
+    margin-top: 1rem;
 }
    
 

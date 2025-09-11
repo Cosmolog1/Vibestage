@@ -4,38 +4,38 @@
 
 {% block section %}
 
-<section class="container">
+<h2 class="h2-pres">Event</h2>
 
-    <table>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"><a href="{{path('admin_event_add')}}">Add</a></th>
+      <th scope="col">Event</th>
+      <th scope="col">Voir</th>
+      <th scope="col">Remove</th>
+      <th scope="col">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for event in events %}
+      <th scope="row">{{event.id}}</th>
+      <td>
+        {{event.name}}
+      </td>
+      <td>
+        <a href="{{ path('admin_event_show', {'id': event.id}) }}">Voir</a>
+      </td>
+      <td>
+        <a href="{{ path('admin_event_delete', {'id': event.id}) }}">Supprimer</a>
+      </td>
+      <td>
+        <a href="{{path('admin_event_edit',{id : event.id})}}">Edit</a>
+      </td>
+    </tr>
 
-        <tr>
-            <th>Event :</th>
-            <th scope="col">Voir</th>
-            <th scope="col">Remove</th>
-            <th scope="col">Edit</th>
-
-        </tr>
-        <a href="{{path('admin_event_add')}}">Add</a>
-        {% for event in events %}
-        <tr>
-            <td>
-                {{event.name}}
-            </td>
-            <td>
-                <a href="{{ path('admin_event_show', {'id': event.id}) }}">Voir</a>
-            </td>
-            <td>
-                <a href="{{ path('admin_event_delete', {'id': event.id}) }}">Supprimer</a>
-            </td>
-            <td>
-                <a href="{{path('admin_event_edit',{id : event.id})}}">Edit</a>
-            </td>
-
-        </tr>
-
-        </body>
-        {% endfor %}
-    </table>
-</section>
+  </tbody>
+      {% endfor %}
+</table>
 
 {% endblock %}

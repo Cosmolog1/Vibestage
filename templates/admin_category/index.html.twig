@@ -4,37 +4,39 @@
 
 {% block section %}
 
-<section class="container">
+<h2 class="h2-pres">Musique</h2>
 
-    <table>
-        <tr>
-            <th>Category :</th>
-            <th scope="col">Voir</th>
-            <th scope="col">Remove</th>
-            <th scope="col">Edit</th>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"><a href="{{path('admin_category_add')}}">Add</a></th>
+      <th scope="col">Musique</th>
+      <th scope="col">Voir</th>
+      <th scope="col">Remove</th>
+      <th scope="col">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for category in categories %}
+      <th scope="row">{{category.id}}</th>
+      <td>
+        {{category.name}}
+      </td>
+      <td>
+        <a href="{{ path('admin_category_show', {'id': category.id}) }}">Voir</a>
+      </td>
+      <td>
+        <a href="{{ path('admin_category_delete', {'id': category.id}) }}">Supprimer</a>
+      </td>
+      <td>
+        <a href="{{path('admin_category_edit',{id : category.id})}}">Edit</a>
+      </td>
+    </tr>
 
-        </tr>
-        <a href="{{path('admin_category_add')}}">Add</a>
-        {% for category in categories %}
-        <tr>
-            <td>
-                {{category.name}}
-            </td>
-            <td>
-                <a href="{{ path('admin_category_show', {'id': category.id}) }}">Voir</a>
-            </td>
-            <td>
-                <a href="{{ path('admin_category_delete', {'id': category.id}) }}">Supprimer</a>
-            </td>
-            <td>
-                <a href="{{path('admin_category_edit',{id : category.id})}}">Edit</a>
-            </td>
+  </tbody>
+      {% endfor %}
+</table>
 
-        </tr>
-
-        </body>
-        {% endfor %}
-    </table>
-</section>
 
 {% endblock %}

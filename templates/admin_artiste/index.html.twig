@@ -4,38 +4,38 @@
 
 {% block section %}
 
-<section class="container">
+<h2 class="h2-pres">Artiste</h2>
 
-    <table>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"><a href="{{path('admin_artiste_add')}}">Add</a></th>
+      <th scope="col">Artiste</th>
+      <th scope="col">Voir</th>
+      <th scope="col">Remove</th>
+      <th scope="col">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for artiste in artistes %}
+      <th scope="row">{{artiste.id}}</th>
+      <td>
+        {{artiste.name}}
+      </td>
+      <td>
+        <a href="{{ path('admin_artiste_show', {'id': artiste.id}) }}">Voir</a>
+      </td>
+      <td>
+        <a href="{{ path('admin_artiste_delete', {'id': artiste.id}) }}">Supprimer</a>
+      </td>
+      <td>
+        <a href="{{path('admin_artiste_edit',{id : artiste.id})}}">Edit</a>
+      </td>
+    </tr>
 
-        <tr>
-            <th>Artiste :</th>
-            <th scope="col">Voir</th>
-            <th scope="col">Remove</th>
-            <th scope="col">Edit</th>
-
-        </tr>
-        <a href="{{path('admin_artiste_add')}}">Add</a>
-        {% for artiste in artistes %}
-        <tr>
-            <td>
-                {{artiste.name}}
-            </td>
-            <td>
-                <a href="{{ path('admin_artiste_show', {'id': artiste.id}) }}">Voir</a>
-            </td>
-            <td>
-                <a href="{{ path('admin_artiste_delete', {'id': artiste.id}) }}">Supprimer</a>
-            </td>
-            <td>
-                <a href="{{path('admin_artiste_edit',{id : artiste.id})}}">Edit</a>
-            </td>
-
-        </tr>
-
-        </body>
-        {% endfor %}
-    </table>
-</section>
+  </tbody>
+      {% endfor %}
+</table>
 
 {% endblock %}

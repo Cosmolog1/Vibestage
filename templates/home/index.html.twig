@@ -5,6 +5,13 @@
 
 
     <div class="p-presentation">
+
+        <h2 class="h2-pres">Pour briser la routine</h2>
+
+        <div class="d-flex justify-content-center mt-2 mb-2">
+            <img src="images/band-1.webp">
+        </div>
+        
         <p>Bienvenue sur Vibestage, votre plateforme dédiée à toute l’actualité musicale.<br>
             Restez informés des concerts, festivals et tournées à ne pas manquer, en France comme à l’international.<br>
             Explorez les différentes catégories par genre ou par artiste pour ne rien rater de la scène musicale.<br>
@@ -17,9 +24,12 @@
                 {# 🔽 Filtres 🔽 #}
         <div class="filters-container">
             <form method="get" action="{{ path('home') }}" class="filters-form">
-
-                <h3>Filtrer les artistes</h3>
+            <h3 class="text-center">Faites votre recherche !</h3>
+               
+            <div class="d-flex flex-column align-items-center justify-content-center">
+                    
                 <div class="filters-row">
+                    <div class="form-group">
                     <label for="artist_country">Pays :</label>
                     <select name="artist_country" id="artist_country">
                         <option value="">Tous</option>
@@ -30,7 +40,9 @@
                             </option>
                         {% endfor %}
                     </select>
+                    </div>
 
+                <div class="form-group">
                     <label for="artist_category">Musique :</label>
                     <select name="artist_category" id="artist_category">
                         <option value="">Toutes</option>
@@ -43,9 +55,9 @@
                     </select>
                 </div>
 
-                <h3>Filtrer les événements</h3>
-                <div class="filters-row">
-                    <label for="event_country">Pays :</label>
+
+                    <div class="form-group">
+                    <label for="event_country">Event Pays :</label>
                     <select name="event_country" id="event_country">
                         <option value="">Tous</option>
                         {% for country in countries %}
@@ -55,10 +67,13 @@
                             </option>
                         {% endfor %}
                     </select>
-                </div>
-                <br>
+                    </div>
 
-                <button type="submit">Appliquer</button>
+                    </div>
+                <div>
+                    <button class="vibestage-btn-red" type="submit">Appliquer</button>
+                </div>
+                </div>
             </form>
         </div>
         {# 🔼 Fin filtres 🔼 #}

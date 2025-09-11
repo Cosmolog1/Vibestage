@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class HomeController extends AbstractController
 {
@@ -60,7 +61,9 @@ final class HomeController extends AbstractController
         int $id,
         ArtisteRepository $ArtisteRepository,
         request $request,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        HttpClientInterface $client,
+
     ): Response {
         $artiste = $ArtisteRepository->find($id);
 
@@ -84,26 +87,62 @@ final class HomeController extends AbstractController
             ]);
         }
 
+        // ----- Appel API Ticketmaster pour trouver l'ID de l'artiste -----
+        $events = [];
+        try {
+            // Étape 1 : récupérer l'ID de l'artiste
+            $responseAttraction = $client->request('GET', 'https://app.ticketmaster.com/discovery/v2/attractions.json', [
+                'query' => [
+                    'apikey' => 'aKB2tWKGljWyA1sdoQdO5GWA7dNZOrJY', // ta clé Ticketmaster
+                    'keyword' => $artiste->getName(),
+                    'size' => 1,
+                ]
+            ]);
+
+            $dataAttraction = $responseAttraction->toArray();
+            $attractionId = $dataAttraction['_embedded']['attractions'][0]['id'] ?? null;
+
+            if ($attractionId) {
+                // Étape 2 : récupérer les events pour cet artiste
+                $responseEvents = $client->request('GET', 'https://app.ticketmaster.com/discovery/v2/events.json', [
+                    'query' => [
+                        'apikey' => 'aKB2tWKGljWyA1sdoQdO5GWA7dNZOrJY',
+                        'attractionId' => $attractionId,
+                        'size' => 20,
+
+                    ]
+                ]);
+
+                $dataEvents = $responseEvents->toArray();
+                $events = $dataEvents['_embedded']['events'] ?? [];
+            }
+        } catch (\Exception $e) {
+            $events = [];
+        }
+
+
 
         return $this->render('home/single_artiste.html.twig', [
             'form' => $form->createView(),
             'artiste' => $artiste,
-            'comments' => $artiste->getComments()
+            'comments' => $artiste->getComments(),
+            'events' => $events
         ]);
     }
 
 
-    #[Route('/single_event/{id}', name: 'single_event')] //, requirements: ['id' => '\d+'])
+    #[Route('/single_event/{id}', name: 'single_event')]
     public function singleEvent(
         int $id,
         EventRepository $EventRepository,
-        request $request,
+        Request $request,
         EntityManagerInterface $entityManager
     ): Response {
         $event = $EventRepository->find($id);
 
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
+        // Formulaire commentaire
         $comment = new Comment();
         $form = $this->createForm(CommentFormType::class, $comment);
         $form->handleRequest($request);
@@ -111,21 +150,20 @@ final class HomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setEvent($event);
             $comment->setUser($this->getUser());
-            $comment->setUpdateAt(new \DateTimeImmutable());
             $comment->setCreatedAt(new \DateTimeImmutable());
+            $comment->setUpdateAt(new \DateTimeImmutable());
+
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('single_event', [
-                'id' => $id
-            ]);
+            return $this->redirectToRoute('single_event', ['id' => $id]);
         }
 
-
+        // Rendu final
         return $this->render('home/single_event.html.twig', [
             'form' => $form->createView(),
             'event' => $event,
-            'comments' => $event->getComments()
+            'comments' => $event->getComments(),
         ]);
     }
 }

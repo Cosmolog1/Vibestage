@@ -4,37 +4,42 @@
 
 {% block section %}
 
-<section class="container">
+<h2 class="h2-pres">Localisation</h2>
 
-    <table>
-        <tr>
-            <th>Location :</th>
-            <th scope="col">Voir</th>
-            <th scope="col">Remove</th>
-            <th scope="col">Edit</th>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"><a href="{{path('admin_location_add')}}">Add</a></th>
+      <th scope="col">Country</th>
+      <th scope="col">City</th>
+      <th scope="col">Voir</th>
+      <th scope="col">Remove</th>
+      <th scope="col">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for location in locations %}
+      <th scope="row">{{location.id}}</th>
+      <td>
+        {{location.country}}
+      </td>
+      <td>
+        {{location.city}}
+      </td>
+      <td>
+        <a href="{{ path('admin_location_show', {'id': location.id}) }}">Voir</a>
+      </td>
+      <td>
+        <a href="{{ path('admin_location_delete', {'id': location.id}) }}">Supprimer</a>
+      </td>
+      <td>
+        <a href="{{path('admin_location_edit',{id : location.id})}}">Edit</a>
+      </td>
+    </tr>
 
-        </tr>
-        <a href="{{path('admin_location_add')}}">Add</a>
-        {% for location in locations %}
-        <tr>
-            <td>
-                {{location.city}}
-            </td>
-            <td>
-                <a href="{{ path('admin_location_show', {'id': location.id}) }}">Voir</a>
-            </td>
-            <td>
-                <a href="{{ path('admin_location_delete', {'id': location.id}) }}">Supprimer</a>
-            </td>
-            <td>
-                <a href="{{path('admin_location_edit',{id : location.id})}}">Edit</a>
-            </td>
-
-        </tr>
-
-        </body>
-        {% endfor %}
-    </table>
-</section>
+  </tbody>
+      {% endfor %}
+</table>
 
 {% endblock %}

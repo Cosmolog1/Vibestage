@@ -4,36 +4,48 @@
 
 {% block section %}
 
-<section class="container">
+<h2 class="h2-pres">Comment</h2>
 
-    <table>
-        <tr>
-            <th>Comment :</th>
-            <th scope="col">Voir</th>
-            <th scope="col">Remove</th>
-            <th scope="col">Edit</th>
 
-        </tr>
-        {% for comment in comments %}
-        <tr>
-            <td>
-                {{ comment.user ? comment.user.pseudo : '' }}
-                {{ comment.artiste ? comment.artiste.name : '' }}
-                {{ comment.event ? comment.event.name : '' }}
-                {{ comment.content }}
-                <br><br>
-            </td>
-            <td>
-                <a href="{{ path('admin_comment_show', {'id': comment.id}) }}">Voir</a>
-            </td>
-            <td>
-                <a href="{{ path('admin_comment_delete', {'id': comment.id}) }}">Supprimer</a>
-            </td>
-        </tr>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">User</th>
+      <th scope="col">Artiste</th>
+      <th scope="col">Event</th>
+      <th scope="col">Content</th>
+      <th scope="col">See</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for comment in comments %}
+      <th scope="row">{{comment.id}}</th>
+      <td>
+        {{ comment.user ? comment.user.pseudo : '' }}
+      </td>
+      <td>
+        {{ comment.artiste ? comment.artiste.name : '' }}
+      </td>
+       <td>
+        {{ comment.event ? comment.event.name : '' }}
+      </td>
+      <td>
+        {{ comment.content }}
+      </td>
+      <td>
+        <a href="{{ path('admin_comment_show', {'id': comment.id}) }}">Voir</a>
+      </td>
+      <td>
+        <a href="{{ path('admin_comment_delete', {'id': comment.id}) }}">Supprimer</a>
+      </td>
+    </tr>
 
-        </body>
-        {% endfor %}
-    </table>
-</section>
+  </tbody>
+      {% endfor %}
+</table>
+
 
 {% endblock %}
