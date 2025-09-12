@@ -132,13 +132,16 @@ final class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/api/deezer/artist/search/{name}', name: 'api_deezer_artist_search')]
-    public function deezerSearch(string $name, HttpClientInterface $client): JsonResponse
+    #[Route('/api/deezer/artist/search/{id}', name: 'api_deezer_artist_search')]
+    public function deezerSearch(string $id, HttpClientInterface $client, ArtisteRepository $artisteRepository): JsonResponse
     {
+
+        $artist = $artisteRepository->find($id);
+
         try {
             // Étape 1 : rechercher l'artiste par nom
             $searchRes = $client->request('GET', 'https://api.deezer.com/search/artist', [
-                'query' => ['q' => $name]
+                'query' => ['q' => $artist->getName()]
             ]);
 
             $searchData = $searchRes->toArray()['data'] ?? [];
@@ -148,6 +151,7 @@ final class HomeController extends AbstractController
             if (empty($searchData)) {
                 return $this->json([]);
             }
+
 
             // Étape 2 : prendre le premier ID Deezer
             $deezerId = $searchData[0]['id'];
