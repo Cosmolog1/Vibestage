@@ -35,9 +35,9 @@
         <p>Country : {{ artiste.country }}</p> 
         <br>
 
-        <h3>Top titres Deezer</h3>
-        <div id="trackList"></div>
-        <div id="artistData" data-name="{{ artiste.name }}"></div>
+        <h3>🎵 Top titres Deezer</h3>
+        <br><div id="trackList"></div>
+        <div id="artistData" data-id="{{ artiste.id }}"></div>
 
         {% if events is not empty %}
         <div class="container">
@@ -69,7 +69,7 @@
                     <div class="card-body p-4">
 
                         {# FORMULAIRE COMMENTAIRE #}
-
+                        
                         {{ form_start(form) }}
                             <div class="form-outline mb-4">
                                 {{ form_widget(form.content, {

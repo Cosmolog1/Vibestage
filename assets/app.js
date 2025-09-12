@@ -4,7 +4,7 @@ import "./styles/app.css";
 console.log("This log comes from assets/app.js - welcome to AssetMapper! 🎉");
 
 // Fonction pour charger les titres Deezer via JSONP
-function loadDeezerTracks(artistName) {
+function loadDeezerTracks(artistId) {
     const trackListEl = document.getElementById("trackList");
     if (!trackListEl) return;
 
@@ -15,9 +15,7 @@ function loadDeezerTracks(artistName) {
     // Crée le script JSONP avec callback global
     const script = document.createElement("script");
     script.id = "deezerScript";
-    script.src = `https://api.deezer.com/search?q=${encodeURIComponent(
-        artistName
-    )}&limit=5&output=jsonp&callback=displayTracks`;
+    script.src = `https://api.deezer.com/artist/${artistId}/top?limit=6&output=jsonp&callback=displayTracks`;
 
     document.body.appendChild(script);
 }
@@ -35,7 +33,7 @@ window.displayTracks = function (response) {
     const html = response.data
         .map(
             (track) => `
-                <div class="col-md-6 mb-3">
+                <div class="col-md-5 mb-3">
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">${track.title_short}</h5>
@@ -48,7 +46,7 @@ window.displayTracks = function (response) {
         )
         .join("");
 
-    trackListEl.innerHTML = html;
+    trackListEl.innerHTML = `<div class="row">${html}</div>`;
 };
 
 // Lancement au chargement de la page
@@ -56,6 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const artistDataEl = document.getElementById("artistData");
     if (!artistDataEl) return;
 
-    const artistName = artistDataEl.dataset.name;
-    loadDeezerTracks(artistName);
+    const artistId = artistDataEl.dataset.id;
+    loadDeezerTracks(artistId);
 });
