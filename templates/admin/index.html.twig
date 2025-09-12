@@ -4,23 +4,17 @@
 
 {% block section %}
 
-<ul class="nav">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href = "{{path('admin_artiste')}}"><h2>Artiste</h2></a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href = "{{path('admin_event')}}"><h2>Event</h2></a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href = "{{path('admin_category')}}"><h2>Category</h2></a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href = "{{path('admin_location')}}"><h2>Location</h2></a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href = "{{path('admin_comment')}}"><h2>Comment</h2></a>
-  </li>
-</ul>
+  <div class = "button-admin">
+    <a class="btn btn-primary btn-lg active" role="button" href = "{{path('admin_artiste')}}"><h2>Artiste</h2></a>
+
+    <a class="btn btn-secondary btn-lg active" role="button" href = "{{path('admin_event')}}"><h2>Event</h2></a>
+    
+    <a class="btn btn-success btn-lg active" role="button" href = "{{path('admin_category')}}"><h2>Category</h2></a>
+
+    <a class="btn btn-danger btn-lg active" role="button" href = "{{path('admin_location')}}"><h2>Location</h2></a>
+
+    <a class="btn btn-warning btn-lg active" role="button" href = "{{path('admin_comment')}}"><h2>Comment</h2></a>
+  </div>
 
 
 {% endblock %}

@@ -12,8 +12,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class HomeController extends AbstractController
 {
@@ -126,9 +127,46 @@ final class HomeController extends AbstractController
             'form' => $form->createView(),
             'artiste' => $artiste,
             'comments' => $artiste->getComments(),
-            'events' => $events
+            'events' => $events,
+
         ]);
     }
+
+    #[Route('/api/deezer/artist/search/{name}', name: 'api_deezer_artist_search')]
+    public function deezerSearch(string $name, HttpClientInterface $client): JsonResponse
+    {
+        try {
+            // Étape 1 : rechercher l'artiste par nom
+            $searchRes = $client->request('GET', 'https://api.deezer.com/search/artist', [
+                'query' => ['q' => $name]
+            ]);
+
+            $searchData = $searchRes->toArray()['data'] ?? [];
+
+
+
+            if (empty($searchData)) {
+                return $this->json([]);
+            }
+
+            // Étape 2 : prendre le premier ID Deezer
+            $deezerId = $searchData[0]['id'];
+
+            // Étape 3 : récupérer les top titres
+            $tracksRes = $client->request('GET', "https://api.deezer.com/artist/{$deezerId}/top?limit=10");
+            $tracks = $tracksRes->toArray()['data'] ?? [];
+
+
+
+            return $this->json($tracks);
+        } catch (\Exception $e) {
+            return $this->json([
+                'error' => 'Impossible de récupérer les titres Deezer',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
 
 
     #[Route('/single_event/{id}', name: 'single_event')]

@@ -44,7 +44,7 @@ class ArtisteFormType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'multiple' => true,    // car ManyToMany
-                'expanded' => false,    // checkboxs (false = liste déroulante multiple)
+                'expanded' => true,    // checkboxs (false = liste déroulante multiple)
             ]);
     }
 

@@ -34,21 +34,31 @@
         <br>
         <p>Country : {{ artiste.country }}</p> 
         <br>
+
+        <h3>Top titres Deezer</h3>
+        <div id="trackList"></div>
+        <div id="artistData" data-name="{{ artiste.name }}"></div>
+
         {% if events is not empty %}
-            <h3 class="mt-5">🎫 Concerts à venir</h3>
-                <ul>
+        <div class="container">
+            <div class="row">
+                <h3 class="mt-5">🎫 Concerts à venir</h3>
                     {% for event in events %}
-                        <li class="mb-3">
-                            <strong>{{ event.name }}</strong><br>
-                            📍 {{ event._embedded.venues[0].name ?? '' }} - 
-                            {{ event._embedded.venues[0].city.name ?? '' }} ({{ event._embedded.venues[0].country.countryCode ?? '' }})<br>
-                            🗓️ {{ event.dates.start.localDate ?? '' }}<br>
-                            {% if event.url is defined %}
-                                <a href="{{ event.url }}" target="_blank" class="btn btn-primary btn-sm">Acheter un billet</a>
-                            {% endif %}
-                        </li>
+                        <div class="col-md-6 mb-3">
+                            <br>
+                            <div class="card">
+                                <div class="card-body">
+                                    <strong>{{ event.name }}</strong><br>
+                                    📍 {{ event._embedded.venues[0].name ?? '' }} - 
+                                    {{ event._embedded.venues[0].city.name ?? '' }} ({{ event._embedded.venues[0].country.countryCode ?? '' }})<br>
+                                    🗓️ {{ event.dates.start.localDate ?? '' }}<br>
+                                    {% if event.url is defined %}
+                                        <a href="{{ event.url }}" target="_blank" class="btn btn-primary btn-sm">Acheter un billet</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
                     {% endfor %}
-                </ul>
         {% else %}
             <p class="mt-5">Aucun concert trouvé pour {{ artiste.name }}.</p>
         {% endif %}
@@ -103,6 +113,10 @@
             </div>
         </div>
     </div>
+
+    <div id="artistData" data-name="{{ artiste.name }}"></div>
+
+
 {% endblock %}
 
 
