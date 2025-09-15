@@ -40,17 +40,30 @@ document.addEventListener("turbo:load", async () => {
         return;
     }
 
-    const html = tracks
-        .map(
-            (track) => `
-            <li class="mb-4">
-                <img src="${track.album.cover_medium}" width="50" alt="cover">
-                <strong>${track.title}</strong> - ${track.album.title}<br>
-                <audio controls src="${track.preview}"></audio>
-            </li>
+    const html = `
+    <div class="container">
+        <div class="row">
+        ${tracks
+            .map(
+                (track) => `
+            <div class="col-md-6 mb-3">
+            <br>
+            <div class="card">
+                <div class="card-body">
+                <div class="mb-4">
+                    <img src="${track.album.cover_medium}" width="50" alt="cover" class="me-2">
+                    <strong>${track.title}</strong> - ${track.album.title}<br><br>
+                    <audio controls src="${track.preview}"></audio>
+                </div>
+                </div>
+            </div>
+            </div>
         `
-        )
-        .join("");
+            )
+            .join("")}
+        </div>
+    </div>
+    `;
 
     trackListEl.innerHTML = html;
 });
