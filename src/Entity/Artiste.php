@@ -36,12 +36,6 @@ class Artiste
     private ?string $image = null;
 
     /**
-     * @var Collection<int, Like>
-     */
-    #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'artiste')]
-    private Collection $likes;
-
-    /**
      * @var Collection<int, Event>
      */
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'artistes')]
@@ -62,7 +56,6 @@ class Artiste
 
     public function __construct()
     {
-        $this->likes = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->comments = new ArrayCollection();
@@ -145,38 +138,6 @@ class Artiste
         return $this;
     }
 
-
-
-
-    /**
-     * @return Collection<int, Like>
-     */
-    public function getLikes(): Collection
-    {
-        return $this->likes;
-    }
-
-    public function addLike(Like $like): static
-    {
-        if (!$this->likes->contains($like)) {
-            $this->likes->add($like);
-            $like->setArtiste($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLike(Like $like): static
-    {
-        if ($this->likes->removeElement($like)) {
-            // set the owning side to null (unless already changed)
-            if ($like->getArtiste() === $this) {
-                $like->setArtiste(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Event>

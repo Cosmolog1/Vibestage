@@ -92,9 +92,10 @@ final class HomeController extends AbstractController
         $events = [];
         try {
             // Étape 1 : récupérer l'ID de l'artiste
+            $ticketmasterApiKey = $_ENV['TICKETMASTER_API_KEY'];
             $responseAttraction = $client->request('GET', 'https://app.ticketmaster.com/discovery/v2/attractions.json', [
                 'query' => [
-                    'apikey' => 'aKB2tWKGljWyA1sdoQdO5GWA7dNZOrJY', // ta clé Ticketmaster
+                    'apikey' => $ticketmasterApiKey, // ta clé Ticketmaster
                     'keyword' => $artiste->getName(),
                     'size' => 1,
                 ]
@@ -107,7 +108,7 @@ final class HomeController extends AbstractController
                 // Étape 2 : récupérer les events pour cet artiste
                 $responseEvents = $client->request('GET', 'https://app.ticketmaster.com/discovery/v2/events.json', [
                     'query' => [
-                        'apikey' => 'aKB2tWKGljWyA1sdoQdO5GWA7dNZOrJY',
+                        'apikey' => $ticketmasterApiKey,
                         'attractionId' => $attractionId,
                         'size' => 20,
 
@@ -206,6 +207,31 @@ final class HomeController extends AbstractController
             'form' => $form->createView(),
             'event' => $event,
             'comments' => $event->getComments(),
+        ]);
+    }
+
+    #[Route('/politics', name: 'politics')]
+    public function politics(): Response
+    {
+        return $this->render('home/politics.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
+
+    #[Route('/cgu', name: 'cgu')]
+    public function cgu(): Response
+    {
+        return $this->render('home/cgu.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
+
+
+    #[Route('/copyright', name: 'copyright')]
+    public function copyright(): Response
+    {
+        return $this->render('home/copyright.html.twig', [
+            'controller_name' => 'HomeController',
         ]);
     }
 }

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Copyright{% endblock %}
+
+
+{% block body %}
+<div class="container my-5">
+<h1>Copyright</h1>
+<p><strong>Date d’entrée en vigueur :</strong> 1er janvier 2025</p>
+
+
+<hr>
+
+
+<h2>1. Propriété intellectuelle</h2>
+<p>Tous les contenus originaux présents sur le site <strong>{{ site_name|default('Vibestage') }}</strong> (textes, images, logo, éléments graphiques) sont protégés par le droit d’auteur et demeurent la propriété exclusive de leurs créateurs ou ayants droit.</p>
+
+
+<h2>2. Extraits musicaux</h2>
+<p>Les extraits audio diffusés proviennent de l’API <strong>Deezer</strong>. Ils restent la propriété de Deezer et des ayants droit associés. Leur diffusion respecte les conditions d’utilisation de Deezer.</p>
+
+
+<h2>3. Événements et billetterie</h2>
+<p>Les informations relatives aux concerts et événements proviennent de l’API <strong>Ticketmaster</strong> (ou autres partenaires). Les droits relatifs aux contenus (textes, images, logos, marques) appartiennent à Ticketmaster et/ou aux organisateurs des événements.</p>
+
+
+<h2>4. Licence d’utilisation</h2>
+<p>L’utilisateur est autorisé à consulter le site pour un usage strictement personnel et non commercial. Toute reproduction, diffusion ou modification des contenus sans autorisation préalable est interdite.</p>
+
+
+<h2>5. Marques</h2>
+<p>Les noms et logos des services tiers (Deezer, Ticketmaster) sont des marques déposées et appartiennent à leurs propriétaires respectifs. Leur présence sur le site n’implique aucun partenariat officiel autre que l’usage de leurs API publiques.</p>
+
+
+<h2>6. Signalement</h2>
+<p>Si vous estimez qu’un contenu présent sur le site enfreint vos droits d’auteur, merci de nous contacter à : <strong>{{ contact_email|default('contact@monsitemusique.example') }}</strong>. Nous prendrons les mesures nécessaires.</p>
+
+
+<h2>7. Modifications</h2>
+<p>Nous nous réservons le droit de modifier cette notice Copyright à tout moment. La date de la dernière mise à jour sera indiquée en haut de cette page.</p>
+
+
+<hr>
+</div>
+{% endblock %}

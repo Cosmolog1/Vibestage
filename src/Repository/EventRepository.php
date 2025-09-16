@@ -14,13 +14,15 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
-    public function findByFilters(?string $country): array
+    public function findByFilters(?string $eventCountry): array
     {
-        $qb = $this->createQueryBuilder('e');
+        $qb = $this->createQueryBuilder('e')
+            ->leftJoin('e.location', 'l')
+            ->addSelect('l');
 
-        if ($country) {
-            $qb->andWhere('e.country = :country')
-                ->setParameter('country', $country);
+        if ($eventCountry) {
+            $qb->andWhere('l.country = :country')
+                ->setParameter('country', $eventCountry);
         }
 
         return $qb->getQuery()->getResult();

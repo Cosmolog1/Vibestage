@@ -77,12 +77,6 @@ class Event
     private ?\DateTime $dateEnd = null;
 
     /**
-     * @var Collection<int, Like>
-     */
-    #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'event')]
-    private Collection $likes;
-
-    /**
      * @var Collection<int, Artiste>
      */
     #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'events')]
@@ -94,7 +88,6 @@ class Event
     {
         $this->comments = new ArrayCollection();
         $this->location = new ArrayCollection();
-        $this->likes = new ArrayCollection();
         $this->artistes = new ArrayCollection();
     }
 
@@ -201,35 +194,6 @@ class Event
         return $this;
     }
 
-    /**
-     * @return Collection<int, Like>
-     */
-    public function getLikes(): Collection
-    {
-        return $this->likes;
-    }
-
-    public function addLike(Like $like): static
-    {
-        if (!$this->likes->contains($like)) {
-            $this->likes->add($like);
-            $like->setEvent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLike(Like $like): static
-    {
-        if ($this->likes->removeElement($like)) {
-            // set the owning side to null (unless already changed)
-            if ($like->getEvent() === $this) {
-                $like->setEvent(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Artiste>
