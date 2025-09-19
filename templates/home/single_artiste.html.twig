@@ -5,65 +5,58 @@
 {% block body %}
 
     <div class="show-single">
-        <br>
-            <h2>{{ artiste.name }}</h2>
-        <br>
-        <tr>
-            <div class = "show-single-image">
-                <td>
+        
+        <h2 class="my-5">{{ artiste.name }}</h2>
+ 
+            <div class = "show-single-image my-3">
                     {% if artiste.image %}
                         <img src="{{ asset(artiste.image) }}" alt="Image de l'artiste">
                     {% else %}
                         <em>Aucune image</em>
                     {% endif %}
-                </td>
             </div>
-        </tr>
-        <br>
-        <p>Musique : {% for category in artiste.categories %}
+     
+        <p class="my-3">Musique : {% for category in artiste.categories %}
                     {{ category.name }}
                 {% else %}
                     <span>Aucune catégorie</span>
                 {% endfor %}</p>
-        <br>
-        <p>Genre : {{ artiste.genre }}</p>
-        <br>
-        <p>Abonnées : {{ artiste.nbAbonne }}</p>
-        <br>
-        <p>Content : <br><br>{{ artiste.content }}</p>
-        <br>
-        <p>Country : {{ artiste.country }}</p> 
-        <br>
+        <p class="my-3">Genre : {{ artiste.genre }}</p>
+        <p class="my-3">Abonnées : {{ artiste.nbAbonne }}</p>
+        <p class="my-3">Content : <br><br>{{ artiste.content }}</p>
+        <p class="my-3">Country : {{ artiste.country }}</p> 
+        
 
-        <h3>🎵 Top titres Deezer</h3>
-        <br><div id="trackList"></div>
+        <h3 class="my-5">🎵 Top titres Deezer</h3>
+        <div id="trackList"></div>
         <div id="artistData" data-id="{{ artiste.id }}"></div>
 
         {% if events is not empty %}
-        <div class="container">
-            <div class="row">
-                <h3 class="mt-5">🎫 Concerts à venir</h3>
+            <div class="container">
+                <h3 class="mt-5 my-3">🎫 Concerts à venir</h3>
+                <div class="row">
                     {% for event in events %}
-                        <div class="col-md-6 mb-3">
-                            <br>
-                            <div class="card">
+                        <div class="col-12 col-md-6 col-lg-4 mb-3"> <!-- 1 colonne mobile / 2 tablette / 3 desktop -->
+                            <div class="card h-100 shadow-sm">
                                 <div class="card-body">
                                     <strong>{{ event.name }}</strong><br>
                                     📍 {{ event._embedded.venues[0].name ?? '' }} - 
                                     {{ event._embedded.venues[0].city.name ?? '' }} ({{ event._embedded.venues[0].country.countryCode ?? '' }})<br>
                                     🗓️ {{ event.dates.start.localDate ?? '' }}<br>
                                     {% if event.url is defined %}
-                                        <a href="{{ event.url }}" target="_blank" class="btn btn-primary btn-sm">Acheter un billet</a>
+                                        <a href="{{ event.url }}" target="_blank" class="btn btn-primary btn-sm mt-2">Acheter un billet</a>
                                     {% endif %}
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
+                </div>
+            </div>
         {% else %}
             <p class="mt-5">Aucun concert trouvé pour {{ artiste.name }}.</p>
         {% endif %}
         <br>
-        <h3 class="mt-5">💬 Commentaire</h3>
+        <h3 class="mt-5 my-5">💬 Commentaire</h3>
         
 
 

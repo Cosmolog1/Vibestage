@@ -88,14 +88,14 @@ final class HomeController extends AbstractController
             ]);
         }
 
-        // ----- Appel API Ticketmaster pour trouver l'ID de l'artiste -----
+        // Appel de l'API Ticketmaster afin de trouver l'ID de l'artiste 
         $events = [];
         try {
-            // Étape 1 : récupérer l'ID de l'artiste
+            // 1 : Récupére l'ID de l'artiste
             $ticketmasterApiKey = $_ENV['TICKETMASTER_API_KEY'];
             $responseAttraction = $client->request('GET', 'https://app.ticketmaster.com/discovery/v2/attractions.json', [
                 'query' => [
-                    'apikey' => $ticketmasterApiKey, // ta clé Ticketmaster
+                    'apikey' => $ticketmasterApiKey, // la clé Ticketmaster masqué
                     'keyword' => $artiste->getName(),
                     'size' => 1,
                 ]
@@ -105,13 +105,12 @@ final class HomeController extends AbstractController
             $attractionId = $dataAttraction['_embedded']['attractions'][0]['id'] ?? null;
 
             if ($attractionId) {
-                // Étape 2 : récupérer les events pour cet artiste
+                // 2 : Récupére les events pour cet artiste
                 $responseEvents = $client->request('GET', 'https://app.ticketmaster.com/discovery/v2/events.json', [
                     'query' => [
                         'apikey' => $ticketmasterApiKey,
                         'attractionId' => $attractionId,
-                        'size' => 20,
-
+                        'size' => 6,
                     ]
                 ]);
 
@@ -121,8 +120,6 @@ final class HomeController extends AbstractController
         } catch (\Exception $e) {
             $events = [];
         }
-
-
 
         return $this->render('home/single_artiste.html.twig', [
             'form' => $form->createView(),
@@ -158,7 +155,7 @@ final class HomeController extends AbstractController
             $deezerId = $searchData[0]['id'];
 
             // Étape 3 : récupérer les top titres
-            $tracksRes = $client->request('GET', "https://api.deezer.com/artist/{$deezerId}/top?limit=10");
+            $tracksRes = $client->request('GET', "https://api.deezer.com/artist/{$deezerId}/top?limit=6");
             $tracks = $tracksRes->toArray()['data'] ?? [];
 
 

@@ -46,7 +46,7 @@ document.addEventListener("turbo:load", async () => {
         ${tracks
             .map(
                 (track) => `
-            <div class="col-md-6 mb-3">
+            <div class="ol-12 col-md-6 mb-3">
             <br>
             <div class="card">
                 <div class="card-body">

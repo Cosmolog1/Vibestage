@@ -8,7 +8,7 @@
          <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         
         {% block stylesheets %}
         {% endblock %}
@@ -19,14 +19,7 @@
         <header>
             {% include "partials/nav.html.twig" %}
         </header>
-        <div class = "intro">
-            <h1 class="h1-intro">Vibestage<br></h1>
-            <h2 class="h2-intro">Pour vibrer au rythme des artistes</h2>
-                <div class = "intro-img">
-                    <img class="img-intro-gauche" src = "https://i.pinimg.com/736x/07/43/9f/07439f93003450ccbdfe961a95f6318c.jpg" alt="Dj feminin au platine"/>
-                    <img class="img-intro-droite" src ="https://i.pinimg.com/1200x/74/08/b8/7408b895005c0b9c5229d3e12a91d1c3.jpg" alt="Femme de dos qui va au festival"/>
-                </div>
-        </div>
+        {% include "partials/intro.html.twig" %}
         <main>
             {% block body %}
             {% endblock %}
