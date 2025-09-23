@@ -15,7 +15,8 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 final class HomeController extends AbstractController
 {
@@ -65,6 +66,7 @@ final class HomeController extends AbstractController
         request $request,
         EntityManagerInterface $entityManager,
         HttpClientInterface $client,
+        CacheInterface $cache,
 
     ): Response {
         $artiste = $ArtisteRepository->find($id);
@@ -91,43 +93,51 @@ final class HomeController extends AbstractController
 
         // Appel de l'API Ticketmaster afin de trouver l'ID de l'artiste 
         $events = [];
-        try {
-            // 1 : Récupére l'ID de l'artiste
+
+        try { // Recuperation de l'Id de l'artiste
             $ticketmasterApiKey = $_ENV['TICKETMASTER_API_KEY'];
-            $responseAttraction = $client->request('GET', 'https://app.ticketmaster.com/discovery/v2/attractions.json', [
-                'query' => [
-                    'apikey' => $ticketmasterApiKey, // la clé Ticketmaster masqué
-                    'keyword' => $artiste->getName(),
-                    'size' => 1,
-                ]
-            ]);
 
-            $dataAttraction = $responseAttraction->toArray();
-            $attractionId = $dataAttraction['_embedded']['attractions'][0]['id'] ?? null;
+            // ⚡ Mise en cache de l'attractionId pour l'artiste
+            $attractionId = $cache->get('ticketmaster_attraction_' . $artiste->getId(), function (ItemInterface $item)
+            use ($client, $ticketmasterApiKey, $artiste) {
+                $item->expiresAfter(86400); // 24h en cache
 
-            if ($attractionId) {
-                // 2 : Récupére les events pour cet artiste
-                $responseEvents = $client->request('GET', 'https://app.ticketmaster.com/discovery/v2/events.json', [
+                $response = $client->request('GET', 'https://app.ticketmaster.com/discovery/v2/attractions.json', [
                     'query' => [
                         'apikey' => $ticketmasterApiKey,
-                        'attractionId' => $attractionId,
-                        'size' => 6,
+                        'keyword' => $artiste->getName(),
+                        'size' => 1,
                     ]
                 ]);
+                $data = $response->toArray();
+                return $data['_embedded']['attractions'][0]['id'] ?? null;
+            });
 
-                $dataEvents = $responseEvents->toArray();
-                $events = $dataEvents['_embedded']['events'] ?? [];
+            if ($attractionId) {
+                // ⚡ Mise en cache des events liés à l'attractionId
+                $events = $cache->get('ticketmaster_events_' . $attractionId, function (ItemInterface $item)
+                use ($client, $ticketmasterApiKey, $attractionId) {
+                    $item->expiresAfter(3600); // 1h en cache
+                    // Récupere les event de l'artiste
+                    $response = $client->request('GET', 'https://app.ticketmaster.com/discovery/v2/events.json', [
+                        'query' => [
+                            'apikey' => $ticketmasterApiKey,
+                            'attractionId' => $attractionId,
+                            'size' => 6,
+                        ]
+                    ]);
+                    $data = $response->toArray();
+                    return $data['_embedded']['events'] ?? [];
+                });
             }
         } catch (\Exception $e) {
             $events = [];
         }
-
         return $this->render('home/single_artiste.html.twig', [
             'form' => $form->createView(),
             'artiste' => $artiste,
             'comments' => $artiste->getComments(),
             'events' => $events,
-
         ]);
     }
 
