@@ -36,15 +36,17 @@
                 <h3 class="mt-5 my-3">🎫 Concerts à venir</h3>
                 <div class="row">
                     {% for event in events %}
-                        <div class="col-12 col-md-6 col-lg-4 mb-3"> <!-- 1 colonne mobile / 2 tablette / 3 desktop -->
+                        <div class="col-12 col-md-6 col-lg-4 mb-3">
                             <div class="card h-100 shadow-sm">
                                 <div class="card-body">
                                     <strong>{{ event.name }}</strong><br>
                                     📍 {{ event._embedded.venues[0].name ?? '' }} - 
-                                    {{ event._embedded.venues[0].city.name ?? '' }} ({{ event._embedded.venues[0].country.countryCode ?? '' }})<br>
+                                    {{ event._embedded.venues[0].city.name ?? '' }} 
+                                    ({{ event._embedded.venues[0].country.countryCode ?? '' }})<br>
                                     🗓️ {{ event.dates.start.localDate ?? '' }}<br>
                                     {% if event.url is defined %}
-                                        <a href="{{ event.url }}" target="_blank" class="btn btn-primary btn-sm mt-2">Acheter un billet</a>
+                                        <a href="{{ event.url }}" target="_blank" 
+                                        class="btn btn-primary btn-sm mt-2">Acheter un billet</a>
                                     {% endif %}
                                 </div>
                             </div>

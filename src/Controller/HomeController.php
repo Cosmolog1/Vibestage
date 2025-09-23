@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 final class HomeController extends AbstractController
 {
     #[Route('', name: 'home')]
@@ -133,32 +134,22 @@ final class HomeController extends AbstractController
     #[Route('/api/deezer/artist/search/{id}', name: 'api_deezer_artist_search')]
     public function deezerSearch(string $id, HttpClientInterface $client, ArtisteRepository $artisteRepository): JsonResponse
     {
-
         $artist = $artisteRepository->find($id);
-
         try {
             // Étape 1 : rechercher l'artiste par nom
             $searchRes = $client->request('GET', 'https://api.deezer.com/search/artist', [
                 'query' => ['q' => $artist->getName()]
             ]);
-
             $searchData = $searchRes->toArray()['data'] ?? [];
-
-
 
             if (empty($searchData)) {
                 return $this->json([]);
             }
-
-
-            // Étape 2 : prendre le premier ID Deezer
+            // Prend le premier ID Deezer
             $deezerId = $searchData[0]['id'];
-
-            // Étape 3 : récupérer les top titres
+            // Récupére les top titres
             $tracksRes = $client->request('GET', "https://api.deezer.com/artist/{$deezerId}/top?limit=6");
             $tracks = $tracksRes->toArray()['data'] ?? [];
-
-
 
             return $this->json($tracks);
         } catch (\Exception $e) {
