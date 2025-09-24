@@ -3,15 +3,21 @@
 {% block title %}Hello AdminCategoryController!{% endblock %}
 
 {% block section %}
-{{ form_start(form) }}
+    <div class="d-flex justify-content-center align-items-start min-vh-100 bg-light py-3">
+        <div class="container col-md-6 p-4 bg-white rounded shadow my-5">
+            <h2 class="text-center mb-4">Formulaire d'ajout de Categorie</h2>
 
-{{ form_row(form.name) }}
-<br>
+            {{ form_start(form) }}
+
+            {{ form_row(form.name) }}
 
 
-<button type="submit">Soumettre</button>
+            <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-primary">Soumettre</button>
+                    </div>
 
+                    {{ form_end(form) }}
+        </div>
+    </div>
 
-
-{{ form_end(form) }}
-{% endblock  %}
+{% endblock %}

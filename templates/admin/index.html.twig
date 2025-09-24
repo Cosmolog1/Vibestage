@@ -4,17 +4,17 @@
 
 {% block section %}
 
-  <div class = "button-admin">
-    <a class="btn btn-primary btn-lg active" role="button" href = "{{path('admin_artiste')}}"><h2>Artiste</h2></a>
-
-    <a class="btn btn-secondary btn-lg active" role="button" href = "{{path('admin_event')}}"><h2>Event</h2></a>
-    
-    <a class="btn btn-success btn-lg active" role="button" href = "{{path('admin_category')}}"><h2>Category</h2></a>
-
-    <a class="btn btn-danger btn-lg active" role="button" href = "{{path('admin_location')}}"><h2>Location</h2></a>
-
-    <a class="btn btn-warning btn-lg active" role="button" href = "{{path('admin_comment')}}"><h2>Comment</h2></a>
+<div class ="admin-page">
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+      <div class="d-flex flex-column gap-3">
+          <h2>Menu Administrateur</h2>
+          <a class="btn btn-primary btn-sm" href="{{ path('admin_artiste') }}"><h2>Artiste</h2></a>
+          <a class="btn btn-secondary btn-sm" href="{{ path('admin_event') }}"><h2>Evenement</h2></a>
+          <a class="btn btn-success btn-sm" href="{{ path('admin_category') }}"><h2>Categories</h2></a>
+          <a class="btn btn-danger btn-sm" href="{{ path('admin_location') }}"><h2>Localisation</h2></a>
+          <a class="btn btn-warning btn-sm" href="{{ path('admin_comment') }}"><h2>Commentaire</h2></a>
+      </div>
   </div>
-
+</div>
 
 {% endblock %}

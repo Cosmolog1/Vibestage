@@ -83,7 +83,7 @@ menu {
     justify-content: space-around;
     align-items: center;
     padding: 2rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 .foot a {
@@ -404,4 +404,14 @@ h4 {
     margin: 0.5rem;
 }
 
-/* Css du commentaire */
+/* Css admin */
+.admin-page {
+    background-color: white;
+    min-height: 100vh;
+}
+
+.admin-content {
+    background-color: white;
+    min-height: 100vh;
+    padding: 40px 0;
+}

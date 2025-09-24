@@ -4,29 +4,28 @@
 
 {% block section %}
 
-{{ form_start(form) }}
+<div class="d-flex justify-content-center align-items-start min-vh-100 bg-light py-3">
+    <div class="container col-md-6 p-4 bg-white rounded shadow my-5">
+        <h2 class="text-center mb-4">Formulaire d'édition d'Artiste</h2>
 
-{{ form_row(form.name) }}
-<br>
-{{ form_row(form.dateStart) }}
-<br>
-{{ form_row(form.dateEnd) }}
-<br>
-{{ form_row(form.location) }}
-<br>
-{{ form_row(form.url) }}
-<br>
-{{ form_row(form.artistes) }}
-<br>
-{{ form_row(form.content) }}
-<br>
-{{ form_row(form.image) }}
-<br>
+        {{ form_start(form) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.dateStart) }}
+        {{ form_row(form.dateEnd) }}
+        {{ form_row(form.location) }}
+        {{ form_row(form.url) }}
+        {{ form_row(form.artistes) }}
+        {{ form_row(form.content) }}
+        {{ form_row(form.image) }}
 
 
+        <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-primary">Soumettre</button>
+                </div>
 
+                {{ form_end(form) }}
+            </div>
+        </div>
 
-<button type="submit">Soumettre</button>
-
-{{ form_end(form) }}
-{% endblock  %}
+{% endblock %}
