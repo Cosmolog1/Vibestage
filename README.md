@@ -32,5 +32,5 @@ Review the content and layout of the pages and add dynamic content using JavaScr
 ```
 
 <p align="center">
-  <img src="https://media.giphy.com/media/GM8PrUsm92hRC/giphy.gif">
+  <img src="">
 </p>
