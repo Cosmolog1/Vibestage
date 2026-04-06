@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <nav>
+        <div class="logo">
+          <a href = "{{path('home')}}"><img src="/images/Vibestage_logo.png" alt="Logo Vibestage"></a>
+        </div>
+            <div class="menu">
+                {% if app.user %}
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <a href="{{ path('admin') }}">Admin</a>
+                    {% elseif is_granted("ROLE_USER") %}
+                        <a href="{{ path('user') }}">User</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        <div class="connect">
+            {% if app.user %}
+                <span class="user-pseudo">{{app.user.pseudo}}</span><a href="{{path('app_logout')}}"> / Disconnect</a>
+                {% else %}
+                    <a class="connect" href="{{ path ('app_login') }}">Connect /</a>
+                    <a class="connect" href="{{ path ('app_register') }}">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+</div>
+
+
+
+
