@@ -1,0 +1,30 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Hello AdminCategoryController!{% endblock %}
+
+{% block section %}
+<div class="d-flex justify-content-center align-items-start min-vh-100 bg-light py-3">
+    <div class="container col-md-6 p-4 bg-white rounded shadow my-5">
+        <h2 class="text-center mb-4">Détails de la Categorie</h2>
+
+        <p><strong>Nom de la catégorie :</strong> {{ category.name }}</p>
+        <br>
+
+        {% if category.description is defined and category.description %}
+            <p><strong>Description :</strong> {{ category.description }}</p>
+            <br>
+        {% endif %}
+
+        {% if category.artistes is defined and category.artistes|length > 0 %}
+            <p><strong>Artistes associés :</strong></p>
+            <ul>
+                {% for artiste in category.artistes %}
+                    <li>{{ artiste.name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p><em>Aucun artiste associé</em></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

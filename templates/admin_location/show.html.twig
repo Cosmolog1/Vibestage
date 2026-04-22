@@ -1,0 +1,36 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Hello AdminCategoryController!{% endblock %}
+
+{% block section %}
+<div class="d-flex justify-content-center align-items-start min-vh-100 bg-light py-3">
+    <div class="container col-md-6 p-4 bg-white rounded shadow my-5">
+        <h2 class="text-center mb-4">Détails de la Localisation</h2>
+
+        <p><strong>Pays :</strong> {{ location.country }}</p>
+        <p><strong>Ville :</strong> {{ location.city }}</p>
+
+        {% if location.artistes is defined and location.artistes|length > 0 %}
+            <p><strong>Artistes associés :</strong></p>
+            <ul>
+                {% for artiste in location.artistes %}
+                    <li>{{ artiste.name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p><em>Aucun artiste associé</em></p>
+        {% endif %}
+
+        {% if location.events is defined and location.events|length > 0 %}
+            <p><strong>Événements associés :</strong></p>
+            <ul>
+                {% for event in location.events %}
+                    <li>{{ event.name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p><em>Aucun événement associé</em></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

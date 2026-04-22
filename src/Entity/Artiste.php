@@ -1,0 +1,222 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\ArtisteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: ArtisteRepository::class)]
+class Artiste
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $genre = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $country = null;
+
+    #[ORM\Column]
+    private ?string $nbAbonne = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $content = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
+    /**
+     * @var Collection<int, Event>
+     */
+    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'artistes')]
+    private Collection $events;
+
+    /**
+     * @var Collection<int, Category>
+     */
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'artistes')]
+    private Collection $categories;
+
+    /**
+     * @var Collection<int, Comment>
+     */
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'artiste')]
+    private Collection $comments;
+
+
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getGenre(): ?string
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(string $genre): static
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): static
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getNbAbonne(): ?string
+    {
+        return $this->nbAbonne;
+    }
+
+    public function setNbAbonne(string $nbAbonne): static
+    {
+        $this->nbAbonne = $nbAbonne;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): static
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): static
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->addArtiste($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): static
+    {
+        if ($this->events->removeElement($event)) {
+            $event->removeArtiste($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): static
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): static
+    {
+        $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setArtiste($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getArtiste() === $this) {
+                $comment->setArtiste(null);
+            }
+        }
+
+        return $this;
+    }
+}

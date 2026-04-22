@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Conditions Générales d'Utilisation{% endblock %}
+
+
+{% block body %}
+<div class="container my-5">
+<h1>Conditions Générales d'Utilisation</h1>
+<p><strong>Date d’entrée en vigueur :</strong> 1er janvier 2025</p>
+
+
+<hr>
+
+
+<h2>1. Objet</h2>
+<p>Les présentes CGU régissent l'accès et l'utilisation du site <strong>{{ site_name|default('Vibestage') }}</strong>, qui compile des informations sur des artistes et des événements musicaux. Le site propose des extraits musicaux via l’API <strong>Deezer</strong> et des liens de billetterie via l’API <strong>Ticketmaster</strong>.</p>
+
+
+<h2>2. Services proposés</h2>
+<ul>
+<li>Consultation d’artistes et d’événements musicaux.</li>
+<li>Écoute d’extraits musicaux fournis par Deezer.</li>
+<li>Redirection vers Ticketmaster (ou autres partenaires) pour l’achat de billets.</li>
+</ul>
+
+
+<h2>3. Accès</h2>
+<p>L’accès aux informations publiques est libre. Certaines fonctionnalités (favoris, alertes, etc.) peuvent nécessiter un compte utilisateur.</p>
+
+
+<h2>4. Obligations de l’utilisateur</h2>
+<ul>
+<li>Ne pas utiliser le site à des fins illégales.</li>
+<li>Respecter les droits d’auteur et la propriété intellectuelle.</li>
+<li>Fournir des informations exactes lors de l’inscription.</li>
+</ul>
+
+
+<h2>5. Propriété intellectuelle</h2>
+<p>Les contenus originaux du site sont protégés par le droit d’auteur. Les extraits musicaux restent la propriété des ayants droit (via Deezer). Les billets et informations d’événements relèvent de Ticketmaster ou des organisateurs concernés.</p>
+
+
+<h2>6. Utilisation des API tierces</h2>
+<p>Le site utilise :
+<ul>
+<li><strong>Deezer</strong> pour les extraits audio.</li>
+<li><strong>Ticketmaster</strong> pour la billetterie.</li>
+</ul>
+</p>
+<p class="small text-muted">Les conditions des partenaires s’appliquent directement lors de l’usage de leurs services.</p>
+
+
+<h2>7. Données personnelles</h2>
+<p>Les données collectées sont traitées conformément à notre <a href="{{ path('politics') }}">Politique de confidentialité</a>. Pour toute demande : <strong>{{ contact_email|default('contact@monsitemusique.example') }}</strong>.</p>
+
+
+<h2>8. Responsabilités</h2>
+<p>Le site ne peut être tenu responsable des informations fournies par les API tierces, ni des transactions effectuées sur des sites externes (ex. Ticketmaster).</p>
+
+
+<h2>9. Modifications</h2>
+<p>Nous pouvons mettre à jour ces CGU. La date de la dernière modification sera indiquée sur cette page.</p>
+
+
+<h2>10. Contact</h2>
+<p>Pour toute question relative aux présentes CGU, écrivez à : <strong>{{ contact_email|default('contact@monsitemusique.example') }}</strong>.</p>
+
+
+<hr>
+<p><em>Fin du document — version factice pour usage d’exemple.</em></p>
+</div>
+{% endblock %}
