@@ -13,7 +13,7 @@ class ArtisteRepository extends ServiceEntityRepository
         parent::__construct($registry, Artiste::class);
     }
 
-    public function findByFilters(?string $country, ?int $categoryId): array
+    public function findByFilters(?string $country, ?int $categoryId, $limit = null): array
     {
         $qb = $this->createQueryBuilder('a');
 
@@ -26,6 +26,10 @@ class ArtisteRepository extends ServiceEntityRepository
             $qb->join('a.categories', 'c')
                 ->andWhere('c.id = :categoryId')
                 ->setParameter('categoryId', $categoryId);
+        }
+
+        if ($limit) {
+            $qb->setMaxResults($limit);
         }
 
         return $qb->getQuery()->getResult();

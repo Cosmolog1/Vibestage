@@ -76,36 +76,7 @@
         </div>
     
         <div class="h3-caroussel-wrapper">
-            <h4 class="h3-caroussel">Artistes populaires</h4>
-        </div>
-        <div class="caroussel-artiste">
-            {% for artiste in artistes|slice(0, 10) %}
-                <div class="card-artiste">
-                    <a href="{{ path('single_artiste', {id:artiste.id}) }}"><img 
-                        class="card-img-top" 
-                        src="{{ asset(artiste.image ?? 'images/default.jpg') }}" alt={{ artiste.name }}></a>
-                    <div class="overlay-card">
-                        <span class="card-name">{{ artiste.name }}</span>
-                    </div>
-                </div>
-            {% endfor %}
-            {% if artistes|length > 10 %}
-                    <div class="card-artiste">
-                        <a href="{{ path('multi_artiste') }}">
-                            <img 
-                                class="card-img-top" 
-                                src="{{ asset('images/voir-plus.png') }}" 
-                                alt="Voir plus">
-                        </a>
-                        <div class="overlay-card">
-                            <span class="card-name">Voir plus</span>
-                        </div>
-                    </div>
-                {% endif %}
-        </div>
-    
-        <div class="h3-caroussel-wrapper">
-            <h4 class="h3-caroussel">Événements populaires</h4>
+            <h4 class="h3-caroussel">Tous les évenements</h4>
         </div>
         <div class="caroussel-artiste">
             {% for event in events %}
@@ -120,19 +91,6 @@
                     </div>
                 </div>
             {% endfor %}
-            {% if events|length > 10 %}
-                    <div class="card-artiste">
-                        <a href="{{ path('multi_event') }}">
-                            <img 
-                                class="card-img-top" 
-                                src="{{ asset('images/voir-plus.png') }}" 
-                                alt="Voir plus">
-                        </a>
-                        <div class="overlay-card">
-                            <span class="card-name">Voir plus</span>
-                        </div>
-                    </div>
-                {% endif %}
         </div>
     </div>
 

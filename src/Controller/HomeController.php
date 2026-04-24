@@ -30,7 +30,6 @@ final class HomeController extends AbstractController
     ): Response {
         // 🔹 Récupération des filtres
         $artistCountry = $request->query->get('artist_country');
-        $artistCategory = $request->query->get('artist_category'); // correspond à un ID
         $artistCategory = $request->query->get('artist_category');
         if ($artistCategory !== null && $artistCategory !== '') {
             $artistCategory = (int) $artistCategory;
@@ -38,12 +37,12 @@ final class HomeController extends AbstractController
             $artistCategory = null;
         }
 
-        $artistes = $artisteRepository->findByFilters($artistCountry, $artistCategory);
+        $artistes = $artisteRepository->findByFilters($artistCountry, $artistCategory, 11);
         $eventCountry   = $request->query->get('event_country');
 
         // 🔹 Données filtrées
-        $artistes = $artisteRepository->findByFilters($artistCountry, $artistCategory);
-        $events   = $eventRepository->findByFilters($eventCountry);
+
+        $events   = $eventRepository->findByFilters($eventCountry, 11);
         $comments = $commentRepository->findAll();
 
         // 🔹 Pour alimenter les <select>
@@ -208,6 +207,79 @@ final class HomeController extends AbstractController
         ]);
     }
 
+
+    #[Route('/multi_artiste', name: 'multi_artiste')]
+    public function multiArtiste(
+        ArtisteRepository $artisteRepository,
+        CommentRepository $commentRepository,
+        CategoryRepository $categoryRepository,
+        Request $request
+    ): Response {
+        // 🔹 Récupération des filtres
+        $artistCountry = $request->query->get('artist_country');
+        $artistCategory = $request->query->get('artist_category'); // correspond à un ID
+        $artistCategory = $request->query->get('artist_category');
+        if ($artistCategory !== null && $artistCategory !== '') {
+            $artistCategory = (int) $artistCategory;
+        } else {
+            $artistCategory = null;
+        }
+
+        $artistes = $artisteRepository->findByFilters($artistCountry, $artistCategory);
+
+        // 🔹 Données filtrées
+        $artistes = $artisteRepository->findByFilters($artistCountry, $artistCategory);
+        $comments = $commentRepository->findAll();
+
+        // 🔹 Pour alimenter les <select>
+        $countries  = $artisteRepository->findDistinctCountries();
+        $categories = $categoryRepository->findAll();
+
+        return $this->render('home/multi_artiste.html.twig', [
+            'artistes'   => $artistes,
+            'comments'   => $comments,
+            'countries'  => $countries,
+            'categories' => $categories,
+        ]);
+    }
+
+    #[Route('/multi_event', name: 'multi_event')]
+    public function multi_event(
+        EventRepository $eventRepository,
+        CommentRepository $commentRepository,
+        CategoryRepository $categoryRepository,
+        Request $request
+    ): Response {
+        // 🔹 Récupération des filtres
+        $artistCountry = $request->query->get('artist_country');
+        $artistCategory = $request->query->get('artist_category'); // correspond à un ID
+        $artistCategory = $request->query->get('artist_category');
+        if ($artistCategory !== null && $artistCategory !== '') {
+            $artistCategory = (int) $artistCategory;
+        } else {
+            $artistCategory = null;
+        }
+
+        $eventCountry   = $request->query->get('event_country');
+
+        // 🔹 Données filtrées
+
+        $events   = $eventRepository->findByFilters($eventCountry);
+        $comments = $commentRepository->findAll();
+
+        // 🔹 Pour alimenter les <select>
+        $countries  = $artisteRepository->findDistinctCountries();
+        $categories = $categoryRepository->findAll();
+
+        return $this->render('home/multi_event.html.twig', [
+            'events'     => $events,
+            'comments'   => $comments,
+            'countries'  => $countries,
+            'categories' => $categories,
+        ]);
+    }
+
+
     #[Route('/politics', name: 'politics')]
     public function politics(): Response
     {
@@ -232,4 +304,6 @@ final class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+
+
 }

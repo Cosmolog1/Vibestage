@@ -1,8 +1,8 @@
-/* #34495e */
+/* #0a0a0f */
 /* #b94343 */
 
 body {
-    background-color: #e62b17;
+    background-color: #0a0a0f;
     margin: 0;
     padding: 0;
     font-family: "Merriweather", Georgia, "Times New Roman", serif;
@@ -36,21 +36,22 @@ nav {
 }
 
 .user-pseudo {
-    padding: 5px 10px; /* espace intérieur comme un bouton */
-    border-radius: 12px; /* coins arrondis */
-    font-weight: bold; /* texte en gras */
-    display: inline-block; /* s’adapte au texte */
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+    display: inline-block;
 }
 
 header {
-    background-color: #e62b17;
-    box-shadow: 3px 2px 6px 2px #b943435c;
-    color: #34495e;
+    background-color: #12111a;
+    box-shadow: 3px 2px 6px 2px rgba(201, 168, 76, 0.15);
+    color: #e8dfc8;
+    border-bottom: 1px solid #7a6230;
 }
 
 nav a {
     text-decoration: none;
-    color: #34495e;
+    color: #e8dfc8;
 }
 
 menu {
@@ -63,16 +64,16 @@ menu {
 .vibestage-btn-red {
     padding: 1rem 2rem;
     border: none;
-    color: #fff;
-    background-color: #e62b17;
+    color: #e8dfc8;
+    background-color: #6b3fa0;
     border-radius: 10px;
 }
 
 .vibestage-btn-black {
     padding: 1rem 2rem;
     border: none;
-    color: #fff;
-    background-color: #34495e;
+    color: #e8dfc8;
+    background-color: #0a0a0f;
     border-radius: 10px;
 }
 
@@ -84,54 +85,56 @@ menu {
     align-items: center;
     padding: 2rem;
     font-size: 1rem;
+    background-color: #060609;
+    border-top: 1px solid #7a6230;
 }
 
 .foot a {
     text-decoration: none;
-    color: #33495e;
+    color: #7a7060;
 }
 
 .foot p {
-    color: #33495e;
+    color: #7a7060;
 }
 
 /* Css du carroussel  */
 
 .carrousel-artiste-event {
     padding: 3rem;
-    background-color: #34495e;
+    background-color: #0a0a0f;
 }
 
 .carousel-artiste {
     display: flex;
-    flex-wrap: wrap; /* permet aux cartes de passer à la ligne */
-    justify-content: center; /* centre les cartes sur plusieurs lignes */
-    gap: 20px; /* espace entre les cartes (remplace margin-left/right) */
-    padding: 20px 30px 50px; /* simplifie ton padding */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 30px 50px;
 }
 
 .carrousel-artiste-event {
     padding: 3rem;
-    background-color: #34495e;
+    background-color: #0a0a0f;
 }
 
 .caroussel-artiste {
     display: flex;
-    flex-wrap: wrap; /* permet aux cartes de passer à la ligne */
-    justify-content: center; /* centre les cartes sur plusieurs lignes */
-    gap: 20px; /* espace entre les cartes (remplace margin-left/right) */
-    padding: 20px 30px 50px; /* simplifie ton padding */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 30px 50px;
 }
 
 .h3-caroussel {
     margin-top: 50px;
-    color: #e62b17;
+    color: #e8c97a;
     font-size: 50px;
-    display: inline-block; /* limite la largeur au texte + padding */
-    background-color: #11053e49; /* couleur du fond */
-    padding: 10px 20px; /* espace autour du texte */
-    border-radius: 5px; /* coins arrondis */
-    text-align: center; /* centre le texte à l'intérieur */
+    display: inline-block;
+    background-color: #3a1f5c;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
 }
 
 .card-artiste {
@@ -141,13 +144,15 @@ menu {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    flex: 1 1 180px; /* minimum 180px, s’adapte sinon */
+    flex: 1 1 180px;
     max-width: 220px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid #7a6230;
 }
 
 .card-artiste:hover {
     transform: rotate(-2deg) translateY(-5px) scale(1.02);
+    border-color: #c9a84c;
 }
 
 .card-artiste.subtle-rotate {
@@ -175,7 +180,7 @@ menu {
 .h3-caroussel-wrapper {
     display: flex;
     justify-content: center;
-    margin-top: 50px; /* espace par rapport au contenu précédent */
+    margin-top: 50px;
 }
 
 .card-img-top {
@@ -197,7 +202,7 @@ menu {
 }
 
 .card-name {
-    color: #e62b17;
+    color: #c9a84c;
     font-weight: bold;
     font-size: 1.5rem;
     text-shadow: 2px 2px 2px black;
@@ -229,8 +234,8 @@ h4 {
 /* Css de l'introduction */
 
 .intro {
-    background-color: #34495e;
-    color: #e62b17 !important ;
+    background-color: #0a0a0f;
+    color: #e8c97a !important;
     padding: 3.5rem;
 
     h1 {
@@ -258,7 +263,8 @@ h4 {
     width: 100%;
     border-radius: 12px;
     object-fit: cover;
-    box-shadow: 3px 2px 6px 2px #b943435c;
+    box-shadow: 3px 2px 6px 2px rgba(201, 168, 76, 0.2);
+    border: 1px solid #7a6230;
 }
 
 .intro-img {
@@ -272,17 +278,19 @@ h4 {
 }
 
 .p-presentation {
-    color: #34495e;
+    background-color : #3a1f5c;
+    color: #e8c97a;
     font-size: 1.2rem;
-    text-align: center; /* centre le texte horizontalement */
-    margin: 0 auto; /* ajoute de l’espace autour du texte */
+    text-align: center;
+    margin: 0 auto;
     padding: 4rem;
 
     img {
         width: 300px;
         border-radius: 10px;
-        box-shadow: 3px 2px 6px 2px #34495e40;
+        box-shadow: 3px 2px 6px 2px rgba(201, 168, 76, 0.15);
         margin-bottom: 2rem;
+        border: 1px solid #7a6230;
     }
 }
 
@@ -303,11 +311,11 @@ h4 {
 }
 
 .filters-container label {
-    color: #e62b17;
+    color: #c9a84c;
 }
 
 .filters-container h3 {
-    color: #e62b17;
+    color: #e8c97a;
     font-size: 2.5rem;
     margin: 0;
 }
@@ -320,31 +328,32 @@ h4 {
     justify-content: center;
     flex-direction: column;
     font-size: x-large;
-    background-color: #33495e;
-    min-height: 100vh; /* Prend toute la hauteur de l'écran */
-    text-align: center; /* Centre le texte à l'intérieur des éléments */
+    background-color: #0a0a0f;
+    min-height: 100vh;
+    text-align: center;
     padding-bottom: 3em;
 }
 
 .show-single img {
     border-radius: 12px;
     object-fit: cover;
-    box-shadow: 3px 2px 6px 2px #b943435c;
+    box-shadow: 3px 2px 6px 2px rgba(201, 168, 76, 0.2);
     max-width: 90%;
+    border: 1px solid #7a6230;
 }
 
 .show-single h2 {
-    color: #e62b17;
+    color: #e8c97a;
     font-size: 60px;
 }
 
 .show-single h3 {
-    color: #e62b17;
+    color: #c9a84c;
     font-size: 40px;
 }
 
 .show-single p {
-    color: #e62b17;
+    color: #e8dfc8;
     max-width: 90%;
     font-size: 1rem;
 }
@@ -352,28 +361,29 @@ h4 {
 /* Css du formulaire */
 
 .login-page {
-    min-height: 100vh; /* prend toute la hauteur */
+    min-height: 100vh;
     display: flex;
-    justify-content: center; /* centre horizontalement */
-    align-items: center; /* centre verticalement */
+    justify-content: center;
+    align-items: center;
 
     background-image: url(https://i.pinimg.com/1200x/75/f5/84/75f584ac49c463e48a04c7a748da9ac9.jpg);
     background-repeat: no-repeat;
-    background-size: cover; /* L'image couvre tout l'espace */
-    background-position: center; /* Centre l'image */
-    padding-top: 50px; /* espace au-dessus du contenu sans trou dans le background */
+    background-size: cover;
+    background-position: center;
+    padding-top: 50px;
 }
 
 .login-form {
-    background: #f0f0f0;
+    background: #1a1826;
     padding: 1rem 1.5rem;
     border-radius: 1rem;
-    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.4);
     max-width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: 1px solid #7a6230;
 }
 
 .form-label {
@@ -385,16 +395,21 @@ h4 {
     font-size: 2rem;
     margin-bottom: 1.5rem;
     text-align: center;
+    color: #e8c97a;
 }
 
 .login-form label {
     font-size: 1rem;
     margin-top: 1rem;
+    color: #c9a84c;
 }
 
 .login-form .form-control {
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
+    background-color: #12111a;
+    border: 1px solid #7a6230;
+    color: #e8dfc8;
 }
 
 .login-form .btn {
@@ -402,16 +417,19 @@ h4 {
     padding: 0.75rem;
     border-radius: 0.5rem;
     margin: 0.5rem;
+    background-color: #6b3fa0;
+    border-color: #9b6dd4;
+    color: #e8dfc8;
 }
 
 /* Css admin */
 .admin-page {
-    background-color: white;
+    background-color: #0a0a0f;
     min-height: 100vh;
 }
 
 .admin-content {
-    background-color: white;
+    background-color: #12111a;
     min-height: 100vh;
     padding: 40px 0;
 }
