@@ -91,11 +91,11 @@ menu {
 
 .foot a {
     text-decoration: none;
-    color: #7a7060;
+    color: #e8dfc8;
 }
 
 .foot p {
-    color: #7a7060;
+    color: #e8dfc8;
 }
 
 /* Css du carroussel  */
@@ -206,8 +206,13 @@ menu {
     font-weight: bold;
     font-size: 1.5rem;
     text-shadow: 2px 2px 2px black;
-    font-family: "Poppins" !important;
+    font-family: "Poppins";
     text-align: center;
+}
+
+select {
+    font-family: "Poppins";
+    color: #9c8751;
 }
 
 p,
@@ -215,15 +220,17 @@ td,
 th,
 button,
 label,
-input,
-select {
-    font-family: "Poppins" !important;
+li,
+input {
+    font-family: "Poppins";
+    color: #e8c97a;
 }
 h1,
 h2,
 h3,
 h4 {
-    font-family: "Raleway", sans-serif !important;
+    font-family: "Raleway", sans-serif;
+    color: #e8c97a;
 }
 
 .h2-pres {
@@ -235,7 +242,7 @@ h4 {
 
 .intro {
     background-color: #0a0a0f;
-    color: #e8c97a !important;
+    color: #e8c97a;
     padding: 3.5rem;
 
     h1 {

@@ -10,6 +10,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ArtisteFormType extends AbstractType
 {
@@ -36,15 +38,23 @@ class ArtisteFormType extends AbstractType
                 "label" => "Présentation de l'artiste",
                 "required" => true,
             ])
-            ->add('image', TextType::class, [
-                "label" => "Photo artiste",
-                "required" => true,
+            ->add('image', FileType::class, [
+                'label' => "Image de l'artiste",
+                'required' => false,
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+                        'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPEG, PNG, WebP, GIF).',
+                    ]),
+                ],
             ])
             ->add('categories', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
-                'multiple' => true,    // car ManyToMany
-                'expanded' => true,    // checkboxs (false = liste déroulante multiple)
+                'multiple' => true,    
+                'expanded' => true,    
             ]);
     }
 

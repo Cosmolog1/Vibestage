@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Media;
 use App\Entity\Artiste;
 use App\Form\ArtisteFormType;
 use App\Repository\ArtisteRepository;
@@ -12,99 +11,118 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-
-
 final class AdminArtisteController extends AbstractController
 {
-    // Création de la route qui affichera tout les artistes à l'admin une fois co
-
+    // Liste de tous les artistes
     #[Route('/admin/artiste', name: 'admin_artiste')]
     public function index(ArtisteRepository $artisteRepository): Response
     {
-        $artistes = $artisteRepository->findAll();
-
         return $this->render('admin_artiste/index.html.twig', [
-            'artistes' => $artistes,
+            'artistes' => $artisteRepository->findAll(),
         ]);
     }
 
-    // Création de la route qui affichera un artiste à l'admin une fois co
-
+    // Affichage d'un artiste
     #[Route('/admin/artiste/{id}', name: 'admin_artiste_show')]
-    public function show($id, ArtisteRepository $ArtisteRepository): Response
+    public function show(int $id, ArtisteRepository $artisteRepository): Response
     {
-        $artiste = $ArtisteRepository->find($id);
+        $artiste = $artisteRepository->find($id);
+        if (!$artiste) {
+            throw $this->createNotFoundException('Artiste non trouvé');
+        }
 
         return $this->render('admin_artiste/show.html.twig', [
             'artiste' => $artiste,
         ]);
     }
 
-    // Création du CRUD delete qui supprimera un artiste si l'admin une fois co
-
+    // Suppression d'un artiste
     #[Route('/admin/delete_artiste/{id}', name: 'admin_artiste_delete')]
     public function delete(
-        $id,
-        ArtisteRepository $ArtisteRepository,
+        int $id,
+        ArtisteRepository $artisteRepository,
         EntityManagerInterface $entityManager
     ): Response {
-        $artiste = $ArtisteRepository->find($id);
+        $artiste = $artisteRepository->find($id);
+        if (!$artiste) {
+            throw $this->createNotFoundException('Artiste non trouvé');
+        }
 
         $entityManager->remove($artiste);
         $entityManager->flush();
 
+        $this->addFlash('success', 'Artiste supprimé avec succès.');
         return $this->redirectToRoute('admin_artiste');
     }
 
+    // Édition d'un artiste
     #[Route('/admin/edit_artiste/{id}', name: 'admin_artiste_edit')]
     public function edit(
-        $id,
-        ArtisteRepository $ArtisteRepository,
+        int $id,
+        ArtisteRepository $artisteRepository,
         EntityManagerInterface $entityManager,
         Request $request
     ): Response {
-        $edit = $ArtisteRepository->find($id);
-        $form = $this->createForm(ArtisteFormType::class, $edit);
+        $artiste = $artisteRepository->find($id);
+        if (!$artiste) {
+            throw $this->createNotFoundException('Artiste non trouvé');
+        }
+
+        $form = $this->createForm(ArtisteFormType::class, $artiste);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($edit);
-            $entityManager->flush();
+            $image = $form->get('image')->getData();
 
+            if ($image) {
+                // Suppression de l'ancienne image si elle existe
+                if ($artiste->getImage()) {  
+                    $oldFile = $this->getParameter('image_directory') . '/' . $artiste->getImage(); 
+                    if (file_exists($oldFile)) {
+                        unlink($oldFile);
+                    }
+                }
+            
+                // Traitement de la nouvelle image
+                $newFilename = uniqid() . '.' . $image->guessExtension();
+                $image->move($this->getParameter('image_directory'), $newFilename);
+                $artiste->setImage($newFilename);
+            }
+
+            $entityManager->flush();
+            $this->addFlash('success', 'Artiste modifié avec succès.');
             return $this->redirectToRoute('admin_artiste');
         }
 
         return $this->render('admin_artiste/edit.html.twig', [
-            'edit' => $edit,
+            'artiste' => $artiste,
             'form' => $form->createView(),
         ]);
     }
 
+    // Ajout d'un nouvel artiste
     #[Route('/admin/add_artiste', name: 'admin_artiste_add')]
-    public function add_art(
+    public function add(
         EntityManagerInterface $entityManager,
-        Request $request,
-
+        Request $request
     ): Response {
-        $art = new Artiste();
-        $form = $this->createForm(ArtisteFormType::class, $art);
+        $artiste = new Artiste();
+        $form = $this->createForm(ArtisteFormType::class, $artiste);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-
-
-            $entityManager->persist($art);
+            $entityManager->persist($artiste);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Artiste ajouté avec succès.');
             return $this->redirectToRoute('admin_artiste');
         }
 
-
         return $this->render('admin_artiste/add.html.twig', [
-            'controller_name' => 'AdminArtisteController',
             'form' => $form->createView(),
-
         ]);
     }
 }
+
+
+
