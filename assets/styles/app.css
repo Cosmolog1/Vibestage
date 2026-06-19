@@ -128,7 +128,7 @@ menu {
 
 .h3-caroussel {
     margin-top: 50px;
-    color: #e8c97a;
+    color: #ffffff;
     font-size: 50px;
     display: inline-block;
     background-color: #3a1f5c;
@@ -152,7 +152,7 @@ menu {
 
 .card-artiste:hover {
     transform: rotate(-2deg) translateY(-5px) scale(1.02);
-    border-color: #c9a84c;
+    border-color: #ffffff;
 }
 
 .card-artiste.subtle-rotate {
@@ -202,7 +202,7 @@ menu {
 }
 
 .card-name {
-    color: #c9a84c;
+    color: #ffffff;
     font-weight: bold;
     font-size: 1.5rem;
     text-shadow: 2px 2px 2px black;
@@ -219,18 +219,17 @@ p,
 td,
 th,
 button,
-label,
 li,
 input {
     font-family: "Poppins";
-    color: #e8c97a;
+    color: #ffffff;
 }
 h1,
 h2,
 h3,
 h4 {
     font-family: "Raleway", sans-serif;
-    color: #e8c97a;
+    color: #ffffff;
 }
 
 .h2-pres {
@@ -242,7 +241,7 @@ h4 {
 
 .intro {
     background-color: #0a0a0f;
-    color: #e8c97a;
+    color: #ffffff;
     padding: 3.5rem;
 
     h1 {
@@ -259,7 +258,10 @@ h4 {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column-reverse;
-    align-content: center;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-size: 50px;
     margin: 0;
     padding: 0;
     font-size: 50px;
@@ -286,7 +288,7 @@ h4 {
 
 .p-presentation {
     background-color : #3a1f5c;
-    color: #e8c97a;
+    color: #ffffff;
     font-size: 1.2rem;
     text-align: center;
     margin: 0 auto;
@@ -309,6 +311,7 @@ h4 {
     justify-content: space-around;
     padding-top: 2rem;
     padding-bottom: 2rem;
+    flex-wrap: wrap;
 }
 
 .form-content {
@@ -318,11 +321,11 @@ h4 {
 }
 
 .filters-container label {
-    color: #c9a84c;
+    color: #ffffff;
 }
 
 .filters-container h3 {
-    color: #e8c97a;
+    color: #ffffff;
     font-size: 2.5rem;
     margin: 0;
 }
@@ -341,29 +344,46 @@ h4 {
     padding-bottom: 3em;
 }
 
-.show-single img {
-    border-radius: 12px;
+.show-single-image img {
+    width: min(900px, 100%);
+    height: 500px;
     object-fit: cover;
-    box-shadow: 3px 2px 6px 2px rgba(201, 168, 76, 0.2);
-    max-width: 90%;
+
+    border-radius: 12px;
     border: 1px solid #7a6230;
+    box-shadow: 0 3px 2px 6px rgba(201, 168, 76, 0.2);
 }
 
+@media (max-width: 768px) {
+    .show-single-image img {
+        height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .show-single-image img {
+        height: 250px;
+    }
+}
+
+
 .show-single h2 {
-    color: #e8c97a;
+    color: #ffffff;
     font-size: 60px;
 }
 
 .show-single h3 {
-    color: #c9a84c;
+    color: #ffffff;
     font-size: 40px;
 }
 
 .show-single p {
-    color: #e8dfc8;
+    color: #ffffff;
     max-width: 90%;
     font-size: 1rem;
 }
+
+
 
 /* Css du formulaire */
 
@@ -402,13 +422,13 @@ h4 {
     font-size: 2rem;
     margin-bottom: 1.5rem;
     text-align: center;
-    color: #e8c97a;
+    color: #ffffff;
 }
 
 .login-form label {
     font-size: 1rem;
     margin-top: 1rem;
-    color: #c9a84c;
+    color: #ffffff;
 }
 
 .login-form .form-control {
@@ -440,3 +460,5 @@ h4 {
     min-height: 100vh;
     padding: 40px 0;
 }
+
+

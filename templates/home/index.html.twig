@@ -81,9 +81,13 @@
         <div class="caroussel-artiste">
             {% for artiste in artistes|slice(0, 10) %}
                 <div class="card-artiste">
-                    <a href="{{ path('single_artiste', {id:artiste.id}) }}"><img 
-                        class="card-img-top" 
-                        src="{{ asset(artiste.image ?? 'images/default.jpg') }}" alt={{ artiste.name }}></a>
+                    <a href="{{ path('single_artiste', {id: artiste.id}) }}">
+                        <img
+                            class="card-img-top"
+                            src="/uploads/images/{{ artiste.image ?? 'default.jpg' }}"
+                            alt="{{ artiste.name }}"
+                        >
+                    </a>
                     <div class="overlay-card">
                         <span class="card-name">{{ artiste.name }}</span>
                     </div>

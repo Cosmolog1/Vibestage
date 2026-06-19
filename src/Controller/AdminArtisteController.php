@@ -76,14 +76,14 @@ final class AdminArtisteController extends AbstractController
 
             if ($image) {
                 // Suppression de l'ancienne image si elle existe
-                if ($artiste->getImage()) {  
-                    $oldFile = $this->getParameter('image_directory') . '/' . $artiste->getImage(); 
+                if ($artiste->getImage()) {
+                    $oldFile = $this->getParameter('image_directory') . '/' . $artiste->getImage();
                     if (file_exists($oldFile)) {
                         unlink($oldFile);
                     }
                 }
             
-                // Traitement de la nouvelle image
+                // Enregistrement de la nouvelle image
                 $newFilename = uniqid() . '.' . $image->guessExtension();
                 $image->move($this->getParameter('image_directory'), $newFilename);
                 $artiste->setImage($newFilename);

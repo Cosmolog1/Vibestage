@@ -96,10 +96,11 @@ final class HomeController extends AbstractController
         try { // Recuperation de l'Id de l'artiste
             $ticketmasterApiKey = $_ENV['TICKETMASTER_API_KEY'];
 
-            // ⚡ Mise en cache de l'attractionId pour l'artiste
+            // Mise en cache de l'attractionId pour l'artiste
             $attractionId = $cache->get('ticketmaster_attraction_' . $artiste->getId(), function (ItemInterface $item)
             use ($client, $ticketmasterApiKey, $artiste) {
                 $item->expiresAfter(86400); // 24h en cache
+                $startDateTime = (new \DateTime())->format('Y-m-d\TH:i:s\Z');
 
                 $response = $client->request('GET', 'https://app.ticketmaster.com/discovery/v2/attractions.json', [
                     'query' => [
@@ -110,10 +111,11 @@ final class HomeController extends AbstractController
                 ]);
                 $data = $response->toArray();
                 return $data['_embedded']['attractions'][0]['id'] ?? null;
+                dump($attractionId);
             });
 
             if ($attractionId) {
-                // ⚡ Mise en cache des events liés à l'attractionId
+                // Mise en cache des events liés à l'attractionId
                 $events = $cache->get('ticketmaster_events_' . $attractionId, function (ItemInterface $item)
                 use ($client, $ticketmasterApiKey, $attractionId) {
                     $item->expiresAfter(3600); // 1h en cache
@@ -123,6 +125,7 @@ final class HomeController extends AbstractController
                             'apikey' => $ticketmasterApiKey,
                             'attractionId' => $attractionId,
                             'size' => 6,
+                            'startDateTime' => $startDateTime,
                         ]
                     ]);
                     $data = $response->toArray();
